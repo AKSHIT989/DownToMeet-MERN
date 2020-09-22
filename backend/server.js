@@ -1,33 +1,31 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const routes = require("./routes");
+const path = require("path");
 const app = express();
-const RegisterController = require("./controllers/RegisterController");
-
 const PORT = process.env.PORT || 8000;
 
-if (process.env.NODE_ENV !== "Production") {
+app.use(cors());
+app.use(express.json());
+
+if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
-app.use(cors());
-app.use(express.json()); //helps us for json response
-
-app.get("/", (req, res) => {
-  res.send("Hello from nodemon");
-});
-
-app.post("/register", RegisterController.store);
-
 try {
-  mongoose
-    .connect(process.env.mongo_DB_Connection, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    })
-    .then(console.log("MongoDB connected..."));
+  mongoose.connect(process.env.mongo_DB_Connection, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  console.log("MongoDb connected successfully!");
 } catch (error) {
   console.log(error);
 }
 
-app.listen(PORT, (res) => console.log(`Listening on port: ${PORT}`));
+app.use("/files", express.static(path.resolve(__dirname, "..", "files")));
+app.use(routes);
+
+app.listen(PORT, () => {
+  console.log(`Listening on ${PORT}`);
+});
