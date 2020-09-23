@@ -6,6 +6,9 @@ const EventController = require("./controllers/EventController");
 const DashboardController = require("./controllers/DashboardController");
 const uploadConfig = require("./config/upload");
 const LoginController = require("./controllers/LoginController");
+const RegistrationController = require("./controllers/RegistrationController");
+const ApprovalController = require("./controllers/ApprovalController");
+const RejectionController = require("./controllers/RejectionController");
 
 const routes = express.Router();
 const upload = multer(uploadConfig);
@@ -15,12 +18,27 @@ routes.get("/status", (req, res) => {
 });
 //Endpoints:
 
-//Approval Controller
-//Subscribe Controller
-//Reject Controller
+//Registration(for events)
+routes.post("/registration/:eventId", RegistrationController.create);
+
+routes.get(
+  "/registration/:registrationId",
+  RegistrationController.getRegistration
+);
+//Approve
+routes.post(
+  "/registration/:registrationId/approval",
+  ApprovalController.approval
+);
+//Reject
+routes.post(
+  "/registration/:registrationId/rejection",
+  RejectionController.rejection
+);
 
 //Login Controller
 routes.post("/login", LoginController.store);
+
 //Dashboard
 routes.get("/dashboard", DashboardController.getAllEvents);
 routes.get("/dashboard/:eventType", DashboardController.getAllEvents);
