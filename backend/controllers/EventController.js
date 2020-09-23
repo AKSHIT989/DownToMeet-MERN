@@ -1,12 +1,13 @@
 const Event = require("../models/Events");
 const User = require("../models/User");
+// const { delete } = require("../routes");
 
 module.exports = {
   async createEvent(req, res) {
-    const { title, description, price } = req.body;
+    const { title, description, price, eventType } = req.body;
     const { user_id } = req.headers;
     const { filename } = req.file;
-
+    const currDate = new Date();
     const user = await User.findById(user_id);
 
     if (!user) {
@@ -18,22 +19,23 @@ module.exports = {
       description,
       price: parseFloat(price),
       user: user_id,
+      eventType: eventType,
+      date: currDate,
       thumbnail: filename,
     });
 
     return res.json(event);
   },
 
-  async getEventById(req, res) {
+  async delete(req, res) {
     const { eventId } = req.params;
     try {
-      const event = await Event.findById(eventId);
-
-      if (event) {
-        return res.json(event);
-      }
+      await Event.findByIdAndDelete(eventId);
+      return res.status(204).send();
     } catch (error) {
-      return res.status(400).json({ message: "EventId does not exist!" });
+      return res
+        .status(400)
+        .json({ message: "We do have any event with the ID" });
     }
   },
 };
