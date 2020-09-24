@@ -18,4 +18,4 @@ Steps for making this project work:
 cd client
 npm install
 ``` 
-6) Type ```npm run dev```,this will make the react app start at localhost:3000
+6) Type ```npm run dev``` or ```npm start```,this will make the react app start at localhost:3000
