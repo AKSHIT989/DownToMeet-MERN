@@ -24,7 +24,7 @@ function EventsPage({ history }) {
   const [date, setDate] = useState("");
   const [eventType, setEventType] = useState("Event Type");
   const [error, setError] = useState(false);
-  const [success, setSuccess] = useState("");
+  const [success, setSuccess] = useState(false);
   const [dropdownOpen, setOpen] = useState(false);
 
   const toggle = () => setOpen(!dropdownOpen);
@@ -59,6 +59,7 @@ function EventsPage({ history }) {
         setSuccess(true);
         setTimeout(() => {
           setSuccess(false);
+          history.push("/");
         }, 2000);
       } else {
         setError(true);
@@ -189,7 +190,7 @@ function EventsPage({ history }) {
               history.push("/");
             }}
           >
-            Go to Dashboard
+            Cancel
           </Button>
         </FormGroup>
       </Form>
