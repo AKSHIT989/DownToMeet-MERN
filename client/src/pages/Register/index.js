@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import api from "../../Services/api";
-import { Button, Form, FormGroup, Input, Container } from "reactstrap";
+import { Button, Form, FormGroup, Input, Container, Alert } from "reactstrap";
 
 function Register({ history }) {
   const [email, setEmail] = useState("");
@@ -8,24 +8,45 @@ function Register({ history }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    // console.log(email + password);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-    const response = await api.post("/user/register", {
-      email,
-      password,
-      firstName,
-      lastName,
-    });
-    const userId = response.data._id || false;
+  const handleSubmit = async (evt) => {
+    evt.preventDefault();
 
-    if (userId) {
-      localStorage.setItem("user", userId);
-      history.push("/dashboard");
+    if (
+      email !== "" &&
+      password !== "" &&
+      firstName !== "" &&
+      lastName !== ""
+    ) {
+      const response = await api.post("/user/register", {
+        email,
+        password,
+        firstName,
+        lastName,
+      });
+      const userId = response.data._id || false;
+
+      if (userId) {
+        localStorage.setItem("user", userId);
+        history.push("/dashboard");
+      } else {
+        const { message } = response.data;
+        setError(true);
+        setErrorMessage(message);
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000);
+      }
     } else {
-      const { message } = response.data;
-      console.log(message);
+      setError(true);
+      setErrorMessage("You need to fill all the Inputs");
+      setTimeout(() => {
+        setError(false);
+        setErrorMessage("");
+      }, 2000);
     }
   };
 
@@ -33,52 +54,73 @@ function Register({ history }) {
     <Container>
       <h2>Register</h2>
       <Form onSubmit={handleSubmit}>
-        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Input
-            onChange={(event) => {
-              setFirstName(event.target.value);
-            }}
-            type="text"
-            name="firstName"
-            id="examplefirstName"
-            placeholder="Enter your first name here"
-          />
+        <div className="input-group">
+          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+            <Input
+              onChange={(event) => {
+                setFirstName(event.target.value);
+              }}
+              type="text"
+              name="firstName"
+              id="examplefirstName"
+              placeholder="Enter your first name here"
+            />
+          </FormGroup>
+          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+            <Input
+              onChange={(event) => {
+                setLastName(event.target.value);
+              }}
+              type="text"
+              name="lastName"
+              id="examplelastName"
+              placeholder="Enter your last name here"
+            />
+          </FormGroup>
+          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+            <Input
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
+              type="email"
+              name="email"
+              id="exampleEmail"
+              placeholder="Enter your email here"
+            />
+          </FormGroup>
+          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+            <Input
+              onChange={(event) => {
+                setPassword(event.target.value);
+              }}
+              type="password"
+              name="password"
+              id="examplePassword"
+              placeholder="Enter your password here"
+            />
+          </FormGroup>
+        </div>
+        <FormGroup>
+          <Button className="submit-btn">Submit</Button>
         </FormGroup>
-        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Input
-            onChange={(event) => {
-              setLastName(event.target.value);
+        <FormGroup>
+          <Button
+            className="secondary-btn"
+            onClick={() => {
+              history.push("/login");
             }}
-            type="text"
-            name="lastName"
-            id="examplelastName"
-            placeholder="Enter your last name here"
-          />
-        </FormGroup>
-        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Input
-            onChange={(event) => {
-              setEmail(event.target.value);
-            }}
-            type="email"
-            name="email"
-            id="exampleEmail"
-            placeholder="Enter your email here"
-          />
-        </FormGroup>
-        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Input
-            onChange={(event) => {
-              setPassword(event.target.value);
-            }}
-            type="password"
-            name="password"
-            id="examplePassword"
-            placeholder="Enter your password here"
-          />
-        </FormGroup>
-        <Button>Submit</Button>
+          >
+            Already a user?
+          </Button>
+        </FormGroup>{" "}
       </Form>
+      {errorMessage ? (
+        <Alert color="danger" className="event-validation">
+          Missing required information
+        </Alert>
+      ) : (
+        ""
+      )}
     </Container>
   );
 }
