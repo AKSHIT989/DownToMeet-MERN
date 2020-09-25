@@ -42,6 +42,7 @@ routes.post("/login", LoginController.store);
 //Dashboard
 routes.get("/dashboard", DashboardController.getAllEvents);
 routes.get("/dashboard/:eventType", DashboardController.getAllEvents);
+routes.get("/user/events", DashboardController.getEventsByUserId);
 routes.get("/event/:eventId", DashboardController.getEventById);
 
 //Event
