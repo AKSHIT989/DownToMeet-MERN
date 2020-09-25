@@ -16,7 +16,7 @@ function Login({ history }) {
     try {
       if (userId) {
         localStorage.setItem("user", userId);
-        history.push("/dashboard");
+        history.push("/");
       } else {
         const { message } = response.data;
         setError(true);
@@ -26,7 +26,10 @@ function Login({ history }) {
           setErrorMessage("");
         }, 2000);
       }
-    } catch (error) {}
+    } catch (error) {
+      setError(true);
+      setErrorMessage("Error is " + error);
+    }
   };
 
   return (
@@ -73,7 +76,7 @@ function Login({ history }) {
       </Form>
       {errorMessage ? (
         <Alert color="danger" className="event-validation">
-          Missing required information
+          {errorMessage}
         </Alert>
       ) : (
         ""
