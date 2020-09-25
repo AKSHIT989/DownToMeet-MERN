@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import api from "../../Services/api";
 import CameraIcon from "../../assets/camera.png";
-import DatePicker from "react-datepicker";
+// import DatePicker from "react-datepicker";
 // import moment from "react-moment";
 
 import {
@@ -68,9 +68,9 @@ function EventsPage({ history }) {
           setError(false);
         }, 2000);
       }
-    } catch (error) {
-      Promise.reject(error);
-      console.log(error.message);
+    } catch (er) {
+      Promise.reject(er);
+      console.log(er.message);
     }
 
     return "";
