@@ -17,7 +17,7 @@ module.exports = {
   },
   async getAllEvents(req, res) {
     const { eventType } = req.params;
-    const query = { eventType } || {};
+    const query = eventType ? { eventType } : {};
 
     try {
       const events = await Event.find(query);
