@@ -1,36 +1,33 @@
 import React, { useMemo, useState } from "react";
 import api from "../../Services/api";
 import CameraIcon from "../../assets/camera.png";
-// import DatePicker from "react-datepicker";
-// import moment from "react-moment";
 
 import {
+  Alert,
+  Container,
   Button,
   Form,
   FormGroup,
   Input,
   Label,
-  Container,
-  Alert,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  ButtonDropdown,
 } from "reactstrap";
 import "./events.css";
-//EventsPage will show events
-
-// title: String,
-//     description: String,
-//     price: Number,
-//     eventType: String,
-//     thumbnail: String,
-//     date: Date,
 function EventsPage({ history }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState();
   const [thumbnail, setThumbnail] = useState(null);
   const [date, setDate] = useState("");
-  const [eventType, setEventType] = useState("");
+  const [eventType, setEventType] = useState("Event Type");
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState("");
+  const [dropdownOpen, setOpen] = useState(false);
+
+  const toggle = () => setOpen(!dropdownOpen);
 
   const preview = useMemo(() => {
     return thumbnail ? URL.createObjectURL(thumbnail) : null;
@@ -55,7 +52,8 @@ function EventsPage({ history }) {
         description !== "" &&
         price !== null &&
         eventType !== "" &&
-        date !== ""
+        date !== "" &&
+        thumbnail !== null
       ) {
         await api.post("/event", eventData, { headers: { user_id } });
         setSuccess(true);
@@ -75,7 +73,10 @@ function EventsPage({ history }) {
 
     return "";
   };
-
+  const eventTypeHandler = (eventTyp) => {
+    setEventType(eventTyp);
+    // console.log(eventType);
+  };
   return (
     <Container>
       <h2>Create your event</h2>
@@ -104,16 +105,25 @@ function EventsPage({ history }) {
           </FormGroup>
 
           <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-            <Label>Event type</Label>
-            <Input
-              placeholder="Enter type of event"
-              id="eventType"
-              type="text"
-              value={eventType}
-              onChange={(event) => {
-                setEventType(event.target.value);
-              }}
-            />
+            <Label>Select Event Type</Label>
+            <br />
+            <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
+              <Button id="caret" value={eventType} disabled>
+                {eventType}
+              </Button>
+              <DropdownToggle caret />
+              <DropdownMenu>
+                <DropdownItem onClick={() => eventTypeHandler("webinar")}>
+                  webinar
+                </DropdownItem>
+                <DropdownItem onClick={() => eventTypeHandler("workshop")}>
+                  workshop
+                </DropdownItem>
+                <DropdownItem onClick={() => eventTypeHandler("seminar")}>
+                  seminar
+                </DropdownItem>
+              </DropdownMenu>
+            </ButtonDropdown>
           </FormGroup>
           <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
             <Label>Title</Label>
@@ -176,7 +186,7 @@ function EventsPage({ history }) {
           <Button
             className="secondary-btn"
             onClick={() => {
-              history.push("/dashboard");
+              history.push("/");
             }}
           >
             Go to Dashboard

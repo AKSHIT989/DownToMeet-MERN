@@ -4,10 +4,10 @@ const User = require("../models/User");
 
 module.exports = {
   async createEvent(req, res) {
-    const { title, description, price, eventType } = req.body;
+    const { title, description, price, eventType, date } = req.body;
     const { user_id } = req.headers;
     const { filename } = req.file;
-    const currDate = new Date();
+    // const currDate = new Date();
     const user = await User.findById(user_id);
 
     if (!user) {
@@ -20,7 +20,7 @@ module.exports = {
       price: parseFloat(price),
       user: user_id,
       eventType: eventType,
-      date: currDate,
+      date: date,
       thumbnail: filename,
     });
 
