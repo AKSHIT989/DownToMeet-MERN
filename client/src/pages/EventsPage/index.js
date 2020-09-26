@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import api from "../../Services/api";
 import CameraIcon from "../../assets/camera.png";
 
@@ -26,6 +26,13 @@ function EventsPage({ history }) {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [dropdownOpen, setOpen] = useState(false);
+  const user = localStorage.getItem("user");
+
+  useEffect(() => {
+    if (!user) {
+      history.push("/login");
+    }
+  }, []);
 
   const toggle = () => setOpen(!dropdownOpen);
 
@@ -35,7 +42,6 @@ function EventsPage({ history }) {
 
   const handleEventSubmit = async (event) => {
     event.preventDefault();
-    const user_id = localStorage.getItem("user");
 
     const eventData = new FormData();
 
@@ -55,7 +61,7 @@ function EventsPage({ history }) {
         date !== "" &&
         thumbnail !== null
       ) {
-        await api.post("/event", eventData, { headers: { user_id } });
+        await api.post("/event", eventData, { headers: { user } });
         setSuccess(true);
         setTimeout(() => {
           setSuccess(false);

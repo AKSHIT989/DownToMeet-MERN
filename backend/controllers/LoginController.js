@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
-
+const jwt = require("jsonwebtoken");
 module.exports = {
   async store(req, res) {
     try {
@@ -12,11 +12,9 @@ module.exports = {
 
       const user = await User.findOne({ email });
       if (!user) {
-        return res
-          .status(200)
-          .json({
-            message: "User not found! Do you want to register instead?",
-          });
+        return res.status(200).json({
+          message: "User not found! Do you want to register instead?",
+        });
       }
 
       if (user && (await bcrypt.compare(password, user.password))) {
@@ -26,7 +24,13 @@ module.exports = {
           firstName: user.firstName,
           lastName: user.lastName,
         };
-        return res.json(userResponse);
+        // return res.json(userResponse);
+        return jwt.sign({ user: userResponse }, "secret", (err, token) => {
+          return res.json({
+            user: token,
+            user_id: userResponse._id,
+          });
+        });
       } else {
         return res
           .status(200)
