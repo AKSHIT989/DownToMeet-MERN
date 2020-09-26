@@ -26,10 +26,12 @@ function Register({ history }) {
         firstName,
         lastName,
       });
-      const userId = response.data._id || false;
+      const user = response.data.user || false;
+      const user_id = response.data.user_id || false;
 
-      if (userId) {
-        localStorage.setItem("user", userId);
+      if (user) {
+        localStorage.setItem("user", user);
+        localStorage.setItem("user_item", user_id);
         history.push("/");
       } else {
         const { message } = response.data;
