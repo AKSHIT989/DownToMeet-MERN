@@ -19,3 +19,10 @@ cd client
 npm install
 ``` 
 6) Type ```npm run dev``` or ```npm start```,this will make the react app start at localhost:3000
+
+Features:
+1) Password hashing
+2) Using tokens for sharing userid between processes
+3) creating event
+4) filtering events based on seminar, workshop, webinars, your events
+5) deleting events.
