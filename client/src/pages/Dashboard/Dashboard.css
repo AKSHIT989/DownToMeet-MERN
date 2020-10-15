@@ -64,6 +64,18 @@ ul.notifications li {
   text-decoration: none;
 }
 
+.viewBtn {
+  background-color: sandybrown;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.viewBtn a {
+  color: white;
+  text-decoration: none;
+}
+
 @media (max-width: 768px) {
   ul.events-list {
     grid-template-columns: 1fr;

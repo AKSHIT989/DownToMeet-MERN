@@ -10,7 +10,8 @@ module.exports = {
       } else {
         const user_id = authData.user._id;
         const { eventId } = req.params;
-        const date = Date.now();
+        var date = new Date();
+        date = date.toDateString();
 
         const registration = await Registration.create({
           date: date,
@@ -65,6 +66,26 @@ module.exports = {
           const registrationArr = await Registration.find({ "owner": authData.user._id });
           if (registrationArr) {
             return res.json(registrationArr);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    })
+  },
+
+  getEventParticipants(req, res) {
+    jwt.verify(req.token, "secret", async (err, authData) => {
+      if (err) {
+        res.sendStatus(401);
+      } else {
+        try {
+          const { eventId } = req.params;
+          const participantsArr = await Registration
+            .find({ "owner": authData.user._id, "event": eventId, "approved": true })
+            .populate("user");
+          if (participantsArr) {
+            return res.json(participantsArr);
           }
         } catch (error) {
           console.log(error);

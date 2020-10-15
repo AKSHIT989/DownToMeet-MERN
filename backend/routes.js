@@ -27,6 +27,11 @@ routes.get(
   RegistrationController.getMyRegistrations
 );
 routes.get(
+  "/event/participants/:eventId",
+  verifyToken,
+  RegistrationController.getEventParticipants
+);
+routes.get(
   "/registration/:registrationId",
   verifyToken,
   RegistrationController.getRegistration
