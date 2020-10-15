@@ -17,6 +17,7 @@ import {
 } from "reactstrap";
 import "./events.css";
 function EventsPage({ history }) {
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState();
@@ -32,6 +33,7 @@ function EventsPage({ history }) {
     if (!user) {
       history.push("/login");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const toggle = () => setOpen(!dropdownOpen);
@@ -87,25 +89,25 @@ function EventsPage({ history }) {
   return (
     <Container>
       <h2>Create your event</h2>
-      <Form onSubmit={handleEventSubmit}>
+      <Form onSubmit={ handleEventSubmit }>
         <div className="input-group">
           <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
             <Label>Upload Image</Label>
             <Label
               id="thumbnail"
-              className={thumbnail ? "has-thumnail" : ""}
-              style={{ backgroundImage: `url(${preview})` }}
+              className={ thumbnail ? "has-thumnail" : "" }
+              style={ { backgroundImage: `url(${preview})` } }
             >
               <Input
                 id="thumbnail"
                 type="file"
-                onChange={(event) => {
+                onChange={ (event) => {
                   setThumbnail(event.target.files[0]);
-                }}
+                } }
               />
               <img
-                src={CameraIcon}
-                style={{ maxWidth: "50px" }}
+                src={ CameraIcon }
+                style={ { maxWidth: "50px" } }
                 alt="Upload icon image"
               />
             </Label>
@@ -114,19 +116,19 @@ function EventsPage({ history }) {
           <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
             <Label>Select Event Type</Label>
             <br />
-            <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
-              <Button id="caret" value={eventType} disabled>
-                {eventType}
+            <ButtonDropdown isOpen={ dropdownOpen } toggle={ toggle }>
+              <Button id="caret" value={ eventType } disabled>
+                { eventType }
               </Button>
               <DropdownToggle caret />
               <DropdownMenu>
-                <DropdownItem onClick={() => eventTypeHandler("webinar")}>
+                <DropdownItem onClick={ () => eventTypeHandler("webinar") }>
                   webinar
                 </DropdownItem>
-                <DropdownItem onClick={() => eventTypeHandler("workshop")}>
+                <DropdownItem onClick={ () => eventTypeHandler("workshop") }>
                   workshop
                 </DropdownItem>
-                <DropdownItem onClick={() => eventTypeHandler("seminar")}>
+                <DropdownItem onClick={ () => eventTypeHandler("seminar") }>
                   seminar
                 </DropdownItem>
               </DropdownMenu>
@@ -138,10 +140,10 @@ function EventsPage({ history }) {
               placeholder="Enter event title"
               id="title"
               type="text"
-              value={title}
-              onChange={(event) => {
+              value={ title }
+              onChange={ (event) => {
                 setTitle(event.target.value);
-              }}
+              } }
             />
           </FormGroup>
           <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
@@ -150,10 +152,10 @@ function EventsPage({ history }) {
               placeholder="Enter event description"
               id="description"
               type="text"
-              value={description}
-              onChange={(event) => {
+              value={ description }
+              onChange={ (event) => {
                 setDescription(event.target.value);
-              }}
+              } }
             />
           </FormGroup>
 
@@ -165,10 +167,10 @@ function EventsPage({ history }) {
               type="number"
               min="0"
               step="any"
-              value={price}
-              onChange={(event) => {
+              value={ price }
+              onChange={ (event) => {
                 setPrice(event.target.value);
-              }}
+              } }
             />
           </FormGroup>
 
@@ -178,11 +180,11 @@ function EventsPage({ history }) {
               placeholder="Enter date of event"
               id="price"
               type="date"
-              value={date}
-              onChange={(event) => {
+              value={ date }
+              onChange={ (event) => {
                 setDate(event.target.value);
                 // console.log(new Date());
-              }}
+              } }
             />
           </FormGroup>
         </div>
@@ -192,9 +194,9 @@ function EventsPage({ history }) {
         <FormGroup>
           <Button
             className="secondary-btn"
-            onClick={() => {
+            onClick={ () => {
               history.push("/");
-            }}
+            } }
           >
             Cancel
           </Button>
@@ -206,16 +208,16 @@ function EventsPage({ history }) {
           Missing required information
         </Alert>
       ) : (
-        ""
-      )}
+          ""
+        ) }
 
       {success ? (
         <Alert color="success" className="event-validation">
           Event was created successfully
         </Alert>
       ) : (
-        ""
-      )}
+          ""
+        ) }
     </Container>
   );
 }

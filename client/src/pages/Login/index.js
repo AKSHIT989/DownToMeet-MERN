@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import api from "../../Services/api";
 import { Button, Form, FormGroup, Input, Container, Alert } from "reactstrap";
+import { UserContext } from '../../user-context';
 
 function Login({ history }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const { setIsLoggedIn } = useContext(UserContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -19,7 +21,7 @@ function Login({ history }) {
       if (user && user_id) {
         localStorage.setItem("user", user);
         localStorage.setItem("user_id", user_id);
-
+        setIsLoggedIn(true);
         history.push("/");
       } else {
         const { message } = response.data;

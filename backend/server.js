@@ -3,25 +3,21 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const routes = require("./routes");
 const path = require("path");
-const app = express();
 const PORT = process.env.PORT || 8000;
+const http = require('http');
+const socketio = require('socket.io');
+const dbUrl = 'mongodb+srv://temp_user:t83BZULEJ4rTyZQy@cluster0.himhp.mongodb.net/test?retryWrites=true&w=majority';
 
-// Add JWT Token(DONE)
-// Return token when login(OK)
-// Send token on request(OK)
-// Create function to to protect routers
-// Add function/middleware to routers
-// Modify response to decode the token
-
-app.use(cors());
-app.use(express.json());
+const app = express();
+const server = http.Server(app);
+const io = socketio(server);
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
 try {
-  mongoose.connect(process.env.mongo_DB_Connection, {
+  mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
@@ -30,9 +26,27 @@ try {
   console.log(error);
 }
 
+const connectedUsers = [];
+
+io.on('connection', socket => {
+  const { user } = socket.handshake.query;
+  
+  connectedUsers[user] = socket.id
+})
+
+// app.use()
+
+app.use((req, res, next) => {
+  req.io = io;
+  req.connectedUsers = connectedUsers;
+  return next();
+})
+app.use(cors());
+app.use(express.json());
+
 app.use("/files", express.static(path.resolve(__dirname, "..", "files")));
 app.use(routes);
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);
 });
