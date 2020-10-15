@@ -15,7 +15,8 @@
     "react-moment": "^0.9.7",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "reactstrap": "^8.6.0"
+    "reactstrap": "^8.6.0",
+    "socket.io-client": "^2.3.1"
   },
   "scripts": {
     "dev": "react-scripts start",
@@ -23,9 +24,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": {
     "production": [
