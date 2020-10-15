@@ -1,0 +1,22 @@
+.participants {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    font-family: Calibri;
+}
+
+.participants li {
+    padding: 10px;
+    margin: 0.5em;
+    border-radius: 4px;
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.participant-name {
+    font-family: cursive;
+    font-size: 16px;
+    font-weight: bold;
+}
