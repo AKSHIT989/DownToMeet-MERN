@@ -6,7 +6,6 @@ const path = require("path");
 const PORT = process.env.PORT || 8000;
 const http = require('http');
 const socketio = require('socket.io');
-const dbUrl = 'mongodb+srv://temp_user:t83BZULEJ4rTyZQy@cluster0.himhp.mongodb.net/test?retryWrites=true&w=majority';
 
 const app = express();
 const server = http.Server(app);
@@ -17,7 +16,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 try {
-  mongoose.connect(dbUrl, {
+  mongoose.connect(process.env.mongo_DB_Connection, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
@@ -30,7 +29,7 @@ const connectedUsers = [];
 
 io.on('connection', socket => {
   const { user } = socket.handshake.query;
-  
+
   connectedUsers[user] = socket.id
 })
 
