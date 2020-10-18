@@ -3,6 +3,7 @@ import api from "../../Services/api";
 import moment from "moment";
 import { Container, Jumbotron } from 'reactstrap';
 import { Button, ButtonGroup, Alert, Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
+import { Link } from 'react-router-dom';
 import socketio from 'socket.io-client';
 import {Redirect} from 'react-router-dom'
 // import "./Dashboard.css";
@@ -109,6 +110,14 @@ export default function Dashboard({ history }) {
         setMessageHandler('');
         // setRegistrationStatus('Registration Request');
       }, 2000);
+    }
+  }
+
+  const viewParticipantsHandler = async (event) => {
+    try {
+      localStorage.setItem("eventId", event);
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -233,8 +242,8 @@ export default function Dashboard({ history }) {
                   <Button color="primary" onClick={ () => registrationRequestHandler(event) }>Registration Request</Button>
                 </div>
               ) : (
-                  <div>
-                    <Button color="warning" onClick={ () => registrationRequestHandler(event) }>View Participants</Button>
+                  <div className="viewBtn">
+                    <Link to={ "/event/participants" } onClick={ () => viewParticipantsHandler(event._id) }>View Participants</Link>
                   </div>
                 ) }
             </li>

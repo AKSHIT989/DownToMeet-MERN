@@ -26,3 +26,4 @@ Features:
 3) creating event
 4) filtering events based on seminar, workshop, webinars, your events
 5) deleting events.
+6) Requesting registration for event.
