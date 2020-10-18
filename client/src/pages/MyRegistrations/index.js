@@ -3,6 +3,7 @@ import moment from 'moment';
 import { Button, ButtonGroup } from "reactstrap";
 import api from '../../Services/api';
 import "./myRegistration.css";
+import TopNav from "../../components/TopNav";
 
 export default function MyRegistrations() {
     const [myEvents, setMyEvents] = useState([]);
@@ -44,6 +45,8 @@ export default function MyRegistrations() {
     }
 
     return (
+        <>
+        <TopNav/>
         <ul className="events">
             {myEvents.map(event => (
                 <li key={ event._id }>
@@ -69,5 +72,6 @@ export default function MyRegistrations() {
                 </li>
             )) }
         </ul>
+        </>
     );
 }

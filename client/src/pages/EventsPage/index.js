@@ -4,18 +4,20 @@ import CameraIcon from "../../assets/camera.png";
 
 import {
   Alert,
-  Container,
   Button,
+  Container,
+  Col,
   Form,
   FormGroup,
   Input,
+  InputGroup,
+  InputGroupAddon,
   Label,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  ButtonDropdown,
+  Modal
 } from "reactstrap";
 import "./events.css";
+import TopNav from "../../components/TopNav";
+import '../../components/assets/css/main.css'
 function EventsPage({ history }) {
 
   const [title, setTitle] = useState("");
@@ -30,6 +32,19 @@ function EventsPage({ history }) {
   const user = localStorage.getItem("user");
 
   useEffect(() => {
+    var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //January is 0!
+  var yyyy = today.getFullYear();
+  if(dd<10){
+    dd='0'+dd
+  } 
+  if(mm<10){
+    mm='0'+mm
+  } 
+  today = yyyy+'-'+mm+'-'+dd;
+  document.getElementById("datefield").setAttribute("min", today);
+   
     if (!user) {
       history.push("/login");
     }
@@ -87,11 +102,102 @@ function EventsPage({ history }) {
     // console.log(eventType);
   };
   return (
-    <Container>
-      <h2>Create your event</h2>
+    <Container style={{marginTop:"5%"}}>
+    
+      <center className="logo"><h2>Create your event</h2></center>
+
       <Form onSubmit={ handleEventSubmit }>
-        <div className="input-group">
-          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+        {/* <div className="input-group"> */}
+      {/* <Form> */}
+      
+      <FormGroup row>
+        <Label for="exampleTitle" sm={2}>Event Title</Label>
+        <Col sm={10}>
+          <Input placeholder="Enter event title"
+            bsSize="lg"
+            id="title"
+            type="text"
+            value={ title }
+            onChange={ (event) => {
+                setTitle(event.target.value);
+            } } />
+        </Col>
+      </FormGroup>
+      <FormGroup row>
+        <Label for="exampleText" sm={2}>Event Description</Label>
+        <Col sm={10}>
+        <Input
+          bsSize="lg"
+          placeholder="Enter event description"
+          id="description"
+          type="textarea"
+          value={ description }
+          onChange={ (event) => {
+          setDescription(event.target.value);
+          } }
+        />
+        </Col>
+      </FormGroup>
+      <FormGroup row>
+        <Label for="exampleSelect" sm={2}>Event Type</Label>
+        <Col sm={10}>
+          <Input type="select" name="select" id="exampleSelect" value={eventType}>
+            <option>Select event-type</option>
+            <option onClick={ () => eventTypeHandler("webinar") }>Webinar</option>
+            <option onClick={ () => eventTypeHandler("webinar") }>Seminar</option>
+            <option onClick={ () => eventTypeHandler("webinar") }>workshop</option>
+          </Input>
+        </Col>
+      </FormGroup>
+      <FormGroup row>
+        <Label for="exampleText" sm={2}>Event Price</Label>
+        <Col sm={10}>
+        <InputGroup>
+        <InputGroupAddon addonType="prepend">₹</InputGroupAddon>
+        <Input
+            placeholder="Enter price of event"
+            id="price"
+            type="number"
+            min="0"
+            step="any"
+            value={ price }
+            onChange={ (event) => {
+            setPrice(event.target.value);
+            } }
+        />
+        </InputGroup>
+        </Col>
+      </FormGroup>
+
+      <FormGroup row>
+        <Label for="datefield" sm={2}>Select Date</Label>
+        <Col sm={10}>
+          <Input
+              placeholder="Enter date of event"
+              id="datefield"
+              type="date"
+              value={ date }
+              onChange={ (event) => {
+                setDate(event.target.value);
+                // console.log(new Date());
+              } }
+            />
+        </Col>
+      </FormGroup>
+      <FormGroup row>
+        <Label for="exampleFile" sm={2}>Thumbnail</Label>
+        <Col sm={10}>
+          <Input id="thumbnail"
+            type="file"
+            onChange={ (event) => {
+                setThumbnail(event.target.files[0]);
+            } } />
+        </Col>
+      </FormGroup>
+      
+      {/* </Form> */}
+
+          {/* <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
             <Label>Upload Image</Label>
             <Label
               id="thumbnail"
@@ -111,11 +217,11 @@ function EventsPage({ history }) {
                 alt="Upload icon image"
               />
             </Label>
-          </FormGroup>
+          </FormGroup> */}
 
-          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-            <Label>Select Event Type</Label>
-            <br />
+          {/* <FormGroup row className="mb-2 mr-sm-2 mb-sm-0">
+            <Label sm={2}>Select Event Type</Label>
+            <Col>
             <ButtonDropdown isOpen={ dropdownOpen } toggle={ toggle }>
               <Button id="caret" value={ eventType } disabled>
                 { eventType }
@@ -133,9 +239,11 @@ function EventsPage({ history }) {
                 </DropdownItem>
               </DropdownMenu>
             </ButtonDropdown>
+            </Col>
           </FormGroup>
-          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+          <FormGroup row className="mb-2 mr-sm-2 mb-sm-0">
             <Label>Title</Label>
+            <Col>
             <Input
               placeholder="Enter event title"
               id="title"
@@ -145,6 +253,7 @@ function EventsPage({ history }) {
                 setTitle(event.target.value);
               } }
             />
+            </Col>
           </FormGroup>
           <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
             <Label>Event Description</Label>
@@ -178,7 +287,7 @@ function EventsPage({ history }) {
             <Label>Event date</Label>
             <Input
               placeholder="Enter date of event"
-              id="price"
+              id="datefield"
               type="date"
               value={ date }
               onChange={ (event) => {
@@ -186,20 +295,23 @@ function EventsPage({ history }) {
                 // console.log(new Date());
               } }
             />
-          </FormGroup>
-        </div>
+          </FormGroup> */}
+        {/* </div> */}
+        <br/>
         <FormGroup>
-          <Button className="submit-btn">Create Event</Button>
-        </FormGroup>
-        <FormGroup>
+          <Button className="submit-btn" color="success" size="lg">Create Event</Button>
           <Button
             className="secondary-btn"
             onClick={ () => {
               history.push("/");
             } }
+            color="danger"
+            size="lg"
           >
             Cancel
           </Button>
+        </FormGroup>
+        <FormGroup>
         </FormGroup>
       </Form>
 

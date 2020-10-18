@@ -1,10 +1,13 @@
 import React, { useEffect, useState, useMemo } from "react";
 import api from "../../Services/api";
 import moment from "moment";
+import { Container, Jumbotron } from 'reactstrap';
 import { Button, ButtonGroup, Alert, Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 import socketio from 'socket.io-client';
-import "./Dashboard.css";
-
+import {Redirect} from 'react-router-dom'
+// import "./Dashboard.css";
+// import '../assets/css/main.css'
+// import '../../components/assets/css/main.css'
 //Dashboard will show all the events
 export default function Dashboard({ history }) {
   const [events, setEvents] = useState([]);
@@ -146,9 +149,22 @@ export default function Dashboard({ history }) {
     console.log(newEvent);
     setEventRequests(newEvent);
   }
-
+  const redirectHandler = () => {
+    history.push("/events");
+  }
   return (
     <>
+			<section id="banner">
+				<div class="inner">
+					<h1>Down To Meet:<br/> <span>Host in-person events for people with same interests</span></h1>
+					<ul class="actions">
+            <Button style={{backgroundColor:"#212F3C", border:"2px solid white", padding:"10px"}} 
+            onClick={redirectHandler}>
+              Get Started
+            </Button>
+					</ul>
+				</div>
+			</section>
       <ul className="notifications">
         { eventRequests.map(request => {
           return (
@@ -172,6 +188,7 @@ export default function Dashboard({ history }) {
       {eventRequestSuccess ?
         <Alert className="event-validation" color="success">{ eventRequestMessage }</Alert>
         : "" }
+      <Container>
       <div className="dashboard-page">
         <div className="filter-panel">
           <Dropdown isOpen={ dropdownOpen } toggle={ toggle }>
@@ -238,6 +255,7 @@ export default function Dashboard({ history }) {
             ""
           ) }
       </div>
+      </Container>
     </>
   );
 }
