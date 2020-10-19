@@ -5,8 +5,12 @@ import CameraIcon from "../../assets/camera.png";
 import {
   Alert,
   Button,
+  ButtonDropdown,
   Container,
   Col,
+  DropdownToggle,
+  DropdownItem,
+  DropdownMenu,
   Form,
   FormGroup,
   Input,
@@ -59,7 +63,6 @@ function EventsPage({ history }) {
 
   const handleEventSubmit = async (event) => {
     event.preventDefault();
-
     const eventData = new FormData();
 
     eventData.append("thumbnail", thumbnail);
@@ -141,11 +144,15 @@ function EventsPage({ history }) {
       <FormGroup row>
         <Label for="exampleSelect" sm={2}>Event Type</Label>
         <Col sm={10}>
-          <Input type="select" name="select" id="exampleSelect" value={eventType}>
-            <option>Select event-type</option>
-            <option onClick={ () => eventTypeHandler("webinar") }>Webinar</option>
-            <option onClick={ () => eventTypeHandler("webinar") }>Seminar</option>
-            <option onClick={ () => eventTypeHandler("webinar") }>workshop</option>
+          <Input type="select" name="select" id="exampleSelect" 
+            onChange={ (event) => {
+              setEventType(event.target.value);
+            } }
+          >
+            <option disabled selected>Select event-type</option>
+            <option value="webinar">Webinar</option>
+            <option value="seminar" >Seminar</option>
+            <option value="workshop" >Workshop</option>
           </Input>
         </Col>
       </FormGroup>
@@ -194,6 +201,7 @@ function EventsPage({ history }) {
             } } />
         </Col>
       </FormGroup>
+      
       
       {/* </Form> */}
 
