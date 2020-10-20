@@ -56,4 +56,25 @@ module.exports = {
       }
     });
   },
+
+  getEventDetails(req, res) {
+    jwt.verify(req.token, "secret", async (err, authData) => {
+      if (err) {
+        res.sendStatus(401);
+      } else {
+        try {
+          const { eventId } = req.params;
+          const eventObj = await Event.findById(eventId)
+          if (eventObj) {
+            // console.log(eventObj)
+            return res.json(eventObj);
+          } else {
+            console.log("Event not found")
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    })
+  }
 };

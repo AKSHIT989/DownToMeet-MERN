@@ -70,7 +70,11 @@ routes.post(
   EventController.createEvent
 );
 routes.delete("/event/:eventId", verifyToken, EventController.delete);
-
+routes.get(
+  "/events/details/:eventId",
+  verifyToken,
+  EventController.getEventDetails
+);
 //User
 routes.post("/user/register", UserController.createUser);
 routes.get("/user/:userId", UserController.getUserById);

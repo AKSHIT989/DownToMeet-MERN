@@ -9,6 +9,7 @@ import EventList from '../../components/EventList/Event';
 // import "./Dashboard.css";
 // import '../assets/css/main.css'
 // import '../../components/assets/css/main.css'
+
 //Dashboard will show all the events
 export default function Dashboard({ history }) {
   const [events, setEvents] = useState([]);
@@ -56,35 +57,12 @@ export default function Dashboard({ history }) {
     }
   };
 
-  const deleteEventHandler = async (eventId) => {
-    try {
-      await api.delete(`/event/${eventId}`, {
-        headers: { user: user },
-      });
-      setSuccess(true);
-      setMessageHandler('The event was deleted successfully!');
-      setTimeout(() => {
-        setSuccess(false);
-        filterHandler(null);
-        setMessageHandler('');
-      }, 2500);
-    } catch (error) {
-      setError(true);
-      setMessageHandler('Error while deleting event!');
-      setTimeout(() => {
-        setError(false);
-        setMessageHandler('');
-      }, 2000);
-    }
-  };
-
   const getEvents = async (filter) => {
     try {
       const url = filter ? `/dashboard/${filter}` : "/dashboard";
       const response = await api.get(url, { headers: { user: user } });
       response.data.events.sort((a, b) => { return new Date(a.date) - new Date(b.date); });
       setEvents(response.data.events);
-      console.log(response.data.events);
     } catch (error) {
       history.push("/login");
     }
