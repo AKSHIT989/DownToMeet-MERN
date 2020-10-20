@@ -36,10 +36,10 @@ const TopNav = () => {
                 <div class="inner">
                     <a href="/" class="logo">Down To Meet</a>
                     <Nav className="mr-auto" id="nav">
-                        <NavLink href="/" style={{ color: "white" }}>Dashboard</NavLink>
-                        <NavLink href="/events" style={{ color: "white" }}>Create Event</NavLink>
-                        <NavLink href="/myregistrations" style={{ color: "white" }}>Registrations Request</NavLink>
-                        <NavLink href="/login" style={{ color: "Red" }} onClick={logoutHandler}>
+                        <NavLink href="/" style={ { color: "white" } }>Dashboard</NavLink>
+                        <NavLink href="/events" style={ { color: "white" } }>Create Event</NavLink>
+                        <NavLink href="/myregistrations" style={ { color: "white" } }>Registrations Request</NavLink>
+                        <NavLink href="/login" style={ { color: "Red" } } onClick={ logoutHandler }>
                             <Button color="danger">Logout</Button>
                         </NavLink>
                     </Nav>

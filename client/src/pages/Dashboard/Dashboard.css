@@ -1,9 +1,11 @@
 .container {
   background-image: url(https://unsplash.com/photos/xb0wLfZH9Zo);
 }
+
 .content {
   width: fit-content;
 }
+
 ul.events-list {
   width: 100%;
   list-style: none;
