@@ -34,6 +34,7 @@ label#thumbnail.has-thumbnail img {
   margin: auto;
   width: 50%;
   text-align: center;
+  padding-top: 20px;
 }
 
 .ev-picture {

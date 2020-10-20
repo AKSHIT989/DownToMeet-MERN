@@ -10,6 +10,8 @@ export default function ViewEvent() {
     const user_id = localStorage.getItem("user_id");
     const eventId = localStorage.getItem("eventId");
     const [eventSelected, setEventSelected] = useState({});
+    const [isRequested, setIsRequested] = useState(false);
+    const [registrationStatus, setRegistrationStatus] = useState('Request Registration');
 
     useEffect(() => {
         getEventDetails();
@@ -30,7 +32,8 @@ export default function ViewEvent() {
             await api.post(`/registration/${event.id}`, {}, { headers: { user } });
             // setSuccess(true);
             // setMessageHandler(`The registration request for the event ${event.title} made successfully!`);
-            // // setRegistrationStatus('Requested');
+            setRegistrationStatus('Requested');
+            setIsRequested(true);
             // setTimeout(() => {
             //     setSuccess(false);
             //     filterHandler(null);
@@ -89,7 +92,7 @@ export default function ViewEvent() {
             <p><b>Event description: </b> { eventSelected.description }</p>
             { eventSelected.user !== user_id ? (
                 <div>
-                    <Button color="primary" onClick={ () => registrationRequestHandler(eventSelected) }>Registration Request</Button>
+                    <Button color="primary" disabled={ isRequested } onClick={ () => registrationRequestHandler(eventSelected) }>{ registrationStatus }</Button>
                 </div>
             ) : (
                     <div className="outer-div">
