@@ -2,6 +2,16 @@ import React, { useState, useContext } from "react";
 import api from "../../Services/api";
 import { Button, Form, FormGroup, Input, Container, Alert } from "reactstrap";
 import { UserContext } from '../../user-context';
+// import '../assets/css/style.css'
+import '../../assets/LoginRegister/css/style.css'
+import SignUp from '../../assets/LoginRegister/images/signup-image.jpg'
+
+// import PersonIcon from '@material-ui/icons/Person';
+// import EmailIcon from '@material-ui/icons/Email';
+// import LockIcon from '@material-ui/icons/Lock';
+
+import { MdLock, MdEmail, MdPerson } from "react-icons/md";
+
 
 function Register({ history }) {
   const [email, setEmail] = useState("");
@@ -32,7 +42,7 @@ function Register({ history }) {
 
       if (user && user_id) {
         localStorage.setItem("user", user);
-        localStorage.setItem("user_item", user_id);
+        localStorage.setItem("user_id", user_id);//user_item
         setIsLoggedIn(true);
         history.push("/");
       } else {
@@ -55,77 +65,78 @@ function Register({ history }) {
   };
 
   return (
-    <Container>
-      <h2>Register</h2>
-      <Form onSubmit={handleSubmit}>
-        <div className="input-group">
-          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-            <Input
-              onChange={(event) => {
-                setFirstName(event.target.value);
-              }}
-              type="text"
-              name="firstName"
-              id="examplefirstName"
-              placeholder="Enter your first name here"
-            />
-          </FormGroup>
-          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-            <Input
-              onChange={(event) => {
-                setLastName(event.target.value);
-              }}
-              type="text"
-              name="lastName"
-              id="examplelastName"
-              placeholder="Enter your last name here"
-            />
-          </FormGroup>
-          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-            <Input
-              onChange={(event) => {
-                setEmail(event.target.value);
-              }}
-              type="email"
-              name="email"
-              id="exampleEmail"
-              placeholder="Enter your email here"
-            />
-          </FormGroup>
-          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-            <Input
-              onChange={(event) => {
-                setPassword(event.target.value);
-              }}
-              type="password"
-              name="password"
-              id="examplePassword"
-              placeholder="Enter your password here"
-            />
-          </FormGroup>
+    <div className="main">
+      <section className="signup">
+        <div className="container">
+          <div className="signup-content">
+            <div className="signup-form">
+              <h2 className="form-title">Sign up</h2>
+              <Form onSubmit={handleSubmit} className="register-form" id="register-form">
+                <div className="form-group">
+                  <label for="name">
+                    <MdPerson fontSize="large" />
+                  </label>
+                  <input onChange={(event) => {
+                    setFirstName(event.target.value);
+                  }}
+                    type="text"
+                    name="firstName"
+                    id="examplefirstName"
+                    placeholder="Your first name" />
+                </div>
+                <div className="form-group">
+                  <label for="name"><MdPerson fontSize="large" /></label>
+                  <input onChange={(event) => {
+                    setLastName(event.target.value);
+                  }}
+                    type="text"
+                    name="lastName"
+                    id="examplelastName"
+                    placeholder="Your last name" />
+                </div>
+                <div className="form-group">
+                  <label for="email"><MdEmail fontSize="large" /></label>
+                  <input onChange={(event) => {
+                    setEmail(event.target.value);
+                  }}
+                    type="email"
+                    name="email"
+                    id="exampleEmail"
+                    placeholder="Your email" />
+                </div>
+                <div className="form-group">
+                  <label for="pass"><MdLock fontSize="large" /></label>
+                  <input onChange={(event) => {
+                    setPassword(event.target.value);
+                  }}
+                    type="password"
+                    name="password"
+                    id="examplePassword"
+                    placeholder="Password" />
+                </div>
+                <FormGroup>
+                  <Button color="success" className="submit-btn" size="lg">Register</Button>
+                </FormGroup>
+
+              </Form>
+              {errorMessage ? (
+                <Alert color="danger" className="event-validation">
+                  Missing required information
+                </Alert>
+              ) : (
+                  ""
+                )}
+            </div>
+            <div className="signup-image">
+              <figure><img src={SignUp} alt="sign up image" /></figure>
+              <a onClick={() => {
+                history.push("/login");
+              }} className="signup-image-link" style={{ cursor: "pointer" }}>I am already member</a>
+            </div>
+          </div>
         </div>
-        <FormGroup>
-          <Button className="submit-btn">Submit</Button>
-        </FormGroup>
-        <FormGroup>
-          <Button
-            className="secondary-btn"
-            onClick={() => {
-              history.push("/login");
-            }}
-          >
-            Already a user?
-          </Button>
-        </FormGroup>{" "}
-      </Form>
-      {errorMessage ? (
-        <Alert color="danger" className="event-validation">
-          Missing required information
-        </Alert>
-      ) : (
-        ""
-      )}
-    </Container>
+      </section>
+    </div>
   );
 }
 

@@ -1,6 +1,7 @@
 const { json } = require("express");
 const Registration = require("../models/Registration");
 const jwt = require('jsonwebtoken');
+const Events = require("../models/Events");
 
 module.exports = {
   create(req, res) {

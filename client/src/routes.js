@@ -5,8 +5,9 @@ import Register from "./pages/Register/index";
 import EventsPage from "./pages/EventsPage/index";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import MyRegistrations from "./pages/MyRegistrations";
-import TopNav from "./components/TopNav";
+import TopNav from "./components/NavigationBar/TopNav";
 import ViewParticipants from "./pages/ViewParticipants";
+import ViewEvent from "./pages/EventsPage/event";
 
 export default function Routes() {
   return (
@@ -16,6 +17,7 @@ export default function Routes() {
         <Route exact path="/" component={ Dashboard } />
         <Route path="/myregistrations" exact component={ MyRegistrations } />
         <Route path="/event/participants" exact component={ ViewParticipants } />
+        <Route path="/eventdetails" exact component={ ViewEvent } />
         <Route path="/login" exact component={ Login } />
         <Route path="/register" exact component={ Register } />
         <Route path="/events" component={ EventsPage } />

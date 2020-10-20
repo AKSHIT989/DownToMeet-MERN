@@ -29,3 +29,46 @@ label#thumbnail.has-thumbnail img {
 .container > .event-validation {
   margin-top: 12px;
 }
+
+.ev-details {
+  margin: auto;
+  width: 50%;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.ev-picture {
+  margin: 20px;
+  max-height: 300px;
+  max-width: 300px;
+}
+
+.ev-details p {
+  margin: 0px 0.5em;
+}
+
+.ev-details a {
+  color: white;
+  background-color: #17a2b8;
+  padding: 10px;
+  border-radius: 10px;
+  text-decoration: none;
+  margin: 0px 15px;
+}
+
+.ev-details a:hover {
+    text-decoration: none;
+}
+
+.outer-div {
+  padding: 10px;
+}
+
+.btn-outer {
+  margin-bottom: 15px;
+}
+
+.ev-details .delBtn {
+  background-color: red;
+  margin: 15px 15px;
+}
