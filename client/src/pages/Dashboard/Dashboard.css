@@ -51,37 +51,10 @@ ul.notifications li {
   line-height: 24px;
 }
 
-.logoutBtn {
-  background-color: rgb(199, 39, 33);
-  color: white;
-  border: 2px solid white;
-  text-decoration: none;
-  padding: 5px 15px;
-  border-radius: 10px;
-}
-
-.logoutBtn:hover {
-  background-color: rgb(250, 45, 90);
-  color: white;
-  border: 2px solid white;
-  text-decoration: none;
-}
 @media (max-width: 768px) {
   ul.events-list {
     grid-template-columns: 1fr;
   }
-}
-
-.viewBtn {
-  background-color: sandybrown;
-  padding: 10px 20px;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.viewBtn a {
-  color: white;
-  text-decoration: none;
 }
 
 @media (max-width: 768px) {

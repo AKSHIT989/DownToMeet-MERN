@@ -5,7 +5,7 @@ import Register from "./pages/Register/index";
 import EventsPage from "./pages/EventsPage/index";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import MyRegistrations from "./pages/MyRegistrations";
-import TopNav from "./components/TopNav";
+import TopNav from "./components/NavigationBar/TopNav";
 import ViewParticipants from "./pages/ViewParticipants";
 
 export default function Routes() {

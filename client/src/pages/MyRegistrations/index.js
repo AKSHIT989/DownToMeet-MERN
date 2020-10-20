@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import { Button, ButtonGroup } from "reactstrap";
+import { Button, ButtonGroup, Container } from "reactstrap";
 import api from '../../Services/api';
 import "./myRegistration.css";
-import TopNav from "../../components/TopNav";
 
 export default function MyRegistrations() {
     const [myEvents, setMyEvents] = useState([]);
@@ -46,32 +45,34 @@ export default function MyRegistrations() {
 
     return (
         <>
-        <TopNav/>
-        <ul className="events">
-            {myEvents.map(event => (
-                <li key={ event._id }>
-                    <div className="event-title">{ event.eventTitle }</div>
-                    <div className="event-details">
-                        <span>Event Date: { moment(event.eventDate).format('l') }</span>
-                        <span>Event Price: ₹ { parseFloat(event.eventPrice).toFixed(2) }</span><br />
-                        <span>User Email: { event.userEmail }</span>
-                        <span>Status:
-                            <span className={ event.approved !== undefined ? isApproved(event.approved) : "Pending" }>
-                                { event.approved !== undefined ? isApproved(event.approved) : "Pending" }
+        {/* <h1 style={{backgroundColor:"darkblue", color:"white", alignContent:"center"}}>Akshit</h1> */}
+        <Container>
+            <ul className="events">
+                {myEvents.map(event => (
+                    <li key={event._id}>
+                        <div className="event-title">{event.eventTitle}</div>
+                        <div className="event-details">
+                            <span>Event Date: {moment(event.eventDate).format('l')}</span>
+                            <span>Event Price: ₹ {parseFloat(event.eventPrice).toFixed(2)}</span><br />
+                            <span>User Email: {event.userEmail}</span>
+                            <span>Status:
+                            <span className={event.approved !== undefined ? isApproved(event.approved) : "Pending"}>
+                                    {event.approved !== undefined ? isApproved(event.approved) : "Pending"}
+                                </span>
                             </span>
-                        </span>
-                    </div>
-                    <ButtonGroup>
-                        <Button disabled={ event.approved === true || event.approved === false ? true : false } color="secondary" onClick={ () => { eventStatusHandler(event._id, true) } }>
-                            Accept
+                        </div>
+                        <ButtonGroup>
+                            <Button disabled={event.approved === true || event.approved === false ? true : false} color="secondary" onClick={() => { eventStatusHandler(event._id, true) }}>
+                                Accept
                         </Button>
-                        <Button disabled={ event.approved === true || event.approved === false ? true : false } color="danger" onClick={ () => { eventStatusHandler(event._id, false) } }>
-                            Reject
+                            <Button disabled={event.approved === true || event.approved === false ? true : false} color="danger" onClick={() => { eventStatusHandler(event._id, false) }}>
+                                Reject
                         </Button>
-                    </ButtonGroup>
-                </li>
-            )) }
-        </ul>
+                        </ButtonGroup>
+                    </li>
+                ))}
+            </ul>
+        </Container>
         </>
     );
 }

@@ -28,7 +28,7 @@ function Login({ history }) {
       if (user && user_id) {
         localStorage.setItem("user", user);
         localStorage.setItem("user_id", user_id);
-        
+
         setIsLoggedIn(true);
         history.push("/");
       } else {
@@ -49,63 +49,63 @@ function Login({ history }) {
   return (
 
     <div className="main">
-            <section class="sign-in">
-            <div class="container">
-                <div class="signin-content">
-                    <div class="signin-image">
-                        <figure><img src={SignIn} alt="sing up image"/></figure>
-                        <a class="signup-image-link"
-                        style={{cursor:"pointer"}}
-                        onClick={() => {
-                          history.push("/register");
-                        }}>Create an account</a>
-                    </div>
-
-                    <div class="signin-form">
-                        <h2 class="form-title">Log In</h2>
-                        <Form onSubmit={handleSubmit}>
-                            <div class="form-group" style={{justifyContent:"center"}}>
-                                <label for="your_name"><MdEmail fontSize="large"/></label>
-                                <input
-                                    onChange={(event) => {
-                                        setEmail(event.target.value);
-                                    }}
-                                    type="email"
-                                    name="email"
-                                    id="exampleEmail"
-                                    placeholder="Enter your email here"
-                                />
-                            </div>
-                            <div class="form-group" style={{justifyContent:"center"}}>
-                                <label for="your_pass"><MdLock fontSize="large"/></label>
-                                <input
-                                    onChange={(event) => {
-                                        setPassword(event.target.value);
-                                    }}
-                                    type="password"
-                                    name="password"
-                                    id="examplePassword"
-                                    placeholder="Enter your password here"
-                                />
-                            </div>
-                            <FormGroup>
-                                <Button color="success" className="submit-btn" size="lg">Submit</Button>
-                            </FormGroup>
-                            
-                        </Form>   
-                        {errorMessage ? (
-                            <Alert color="danger" className="event-validation">
-                            {errorMessage}
-                            </Alert>
-                        ) : (
-                            ""
-                        )}      
-                    </div>
-                </div>
+      <section class="sign-in">
+        <div class="container">
+          <div class="signin-content">
+            <div class="signin-image">
+              <figure><img src={SignIn} alt="sing up image" /></figure>
+              <a class="signup-image-link"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  history.push("/register");
+                }}>Create an account</a>
             </div>
-        </section>
 
+            <div class="signin-form">
+              <h2 class="form-title">Log In</h2>
+              <Form onSubmit={handleSubmit}>
+                <div class="form-group" style={{ justifyContent: "center" }}>
+                  <label for="your_name"><MdEmail fontSize="large" /></label>
+                  <input
+                    onChange={(event) => {
+                      setEmail(event.target.value);
+                    }}
+                    type="email"
+                    name="email"
+                    id="exampleEmail"
+                    placeholder="Enter your email here"
+                  />
+                </div>
+                <div class="form-group" style={{ justifyContent: "center" }}>
+                  <label for="your_pass"><MdLock fontSize="large" /></label>
+                  <input
+                    onChange={(event) => {
+                      setPassword(event.target.value);
+                    }}
+                    type="password"
+                    name="password"
+                    id="examplePassword"
+                    placeholder="Enter your password here"
+                  />
+                </div>
+                <FormGroup>
+                  <Button color="success" className="submit-btn" size="lg">Submit</Button>
+                </FormGroup>
+
+              </Form>
+              {errorMessage ? (
+                <Alert color="danger" className="event-validation">
+                  {errorMessage}
+                </Alert>
+              ) : (
+                  ""
+                )}
+            </div>
+          </div>
         </div>
+      </section>
+
+    </div>
 
 
     // <Container>

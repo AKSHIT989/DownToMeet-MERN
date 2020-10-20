@@ -1,12 +1,10 @@
 import React, { useEffect, useState, useMemo } from "react";
 import api from "../../Services/api";
 import moment from "moment";
-import { Container, Jumbotron } from 'reactstrap';
-import { Button, ButtonGroup, Alert, Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
+import { Container } from 'reactstrap';
+import { Button, ButtonGroup, Alert, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Link } from 'react-router-dom';
 import socketio from 'socket.io-client';
-import {Redirect} from 'react-router-dom'
-import ListCard from '../../components/ListCard'
 // import "./Dashboard.css";
 // import '../assets/css/main.css'
 // import '../../components/assets/css/main.css'
@@ -56,7 +54,7 @@ export default function Dashboard({ history }) {
       history.push("/login");
     }
   };
-
+  
   const deleteEventHandler = async (eventId) => {
     try {
       await api.delete(`/event/${eventId}`, {
@@ -78,14 +76,14 @@ export default function Dashboard({ history }) {
       }, 2000);
     }
   };
-
+  
   const getEvents = async (filter) => {
     try {
       const url = filter ? `/dashboard/${filter}` : "/dashboard";
       const response = await api.get(url, { headers: { user: user } });
-
-      // console.log(response.data);
+      response.data.events.sort((a,b) =>{ return new Date(a.date) - new Date(b.date);});
       setEvents(response.data.events);
+      console.log(response.data.events);
     } catch (error) {
       history.push("/login");
     }
@@ -117,6 +115,7 @@ export default function Dashboard({ history }) {
   const viewParticipantsHandler = async (event) => {
     try {
       localStorage.setItem("eventId", event);
+      history.push('/event/participants')
     } catch (error) {
       console.log(error);
     }
@@ -164,107 +163,106 @@ export default function Dashboard({ history }) {
   }
   return (
     <>
-			<section id="banner">
-				<div class="inner">
-					<h1>Down To Meet:<br/> <span>Host in-person events for people with same interests</span></h1>
-					<ul class="actions">
-            <Button style={{backgroundColor:"#212F3C", border:"2px solid white", padding:"10px"}} 
-            onClick={redirectHandler}>
+      <section id="banner">
+        <div class="inner">
+          <h1>Down To Meet:<br /> <span>Host in-person events for people with same interests</span></h1>
+          <ul class="actions">
+            <Button style={{ backgroundColor: "#212F3C", border: "2px solid white", padding: "10px" }}
+              onClick={redirectHandler}>
               Get Started
             </Button>
-					</ul>
-				</div>
-			</section>
+          </ul>
+        </div>
+      </section>
       <ul className="notifications">
-        { eventRequests.map(request => {
+        {eventRequests.map(request => {
           return (
-            <li key={ request._id }>
+            <li key={request._id}>
               <div>
-                <strong>{ request.user.email }</strong> is requesting to register to your event
-                <strong>{ request.event.title }</strong>
+                <strong>{request.user.email}</strong> is requesting to register to your event
+                <strong>{request.event.title}</strong>
                 <ButtonGroup>
-                  <Button color="secondary" onClick={ () => acceptEventHandler(request._id) }>
+                  <Button color="secondary" onClick={() => acceptEventHandler(request._id)}>
                     Accept
                   </Button>
-                  <Button color="danger" onClick={ () => rejectEventHandler(request._id) }>
+                  <Button color="danger" onClick={() => rejectEventHandler(request._id)}>
                     Reject
                   </Button>
                 </ButtonGroup>
               </div>
             </li>
           )
-        }) }
+        })}
       </ul>
       {eventRequestSuccess ?
-        <Alert className="event-validation" color="success">{ eventRequestMessage }</Alert>
-        : "" }
+        <Alert className="event-validation" color="success">{eventRequestMessage}</Alert>
+        : ""}
       <Container>
-      <div className="dashboard-page">
-        <div className="filter-panel">
-          <Dropdown isOpen={ dropdownOpen } toggle={ toggle }>
-            <DropdownToggle color="success" caret>
-              Filter
+        <div className="dashboard-page">
+          <div className="filter-panel">
+            <Dropdown isOpen={dropdownOpen} toggle={toggle} size="lg">
+              <DropdownToggle color="success" caret>
+                Filter
             </DropdownToggle>
-            <DropdownMenu>
-              <DropdownItem onClick={ () => filterHandler(null) } active={ rSelected === null }>All Events</DropdownItem>
-              <DropdownItem onClick={ () => filterHandler("webinar") } active={ rSelected === "webinar" }>Webinar</DropdownItem>
-              <DropdownItem onClick={ () => filterHandler("workshop") } active={ rSelected === "workshop" }>Workshop</DropdownItem>
-              <DropdownItem onClick={ () => filterHandler("seminar") } active={ rSelected === "seminar" }>Seminar</DropdownItem>
-              <DropdownItem onClick={ myEventsHandler } active={ rSelected === "myEvents" }>My Events</DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-        </div>
-        <ul className="events-list">
-          { events.map((event) => (
-            <li key={ event._id }>
-              <header style={ { backgroundImage: `url(${event.thumbnail_url})` } }>
-                { event.user === user_id ? (
-                  <div>
-                    <Button
-                      color="danger"
-                      size="sm"
-                      onClick={ () => deleteEventHandler(event._id) }
-                    >
-                      Delete
+              <DropdownMenu>
+                <DropdownItem onClick={() => filterHandler(null)} active={rSelected === null}>All Events</DropdownItem>
+                <DropdownItem onClick={() => filterHandler("webinar")} active={rSelected === "webinar"}>Webinar</DropdownItem>
+                <DropdownItem onClick={() => filterHandler("workshop")} active={rSelected === "workshop"}>Workshop</DropdownItem>
+                <DropdownItem onClick={() => filterHandler("seminar")} active={rSelected === "seminar"}>Seminar</DropdownItem>
+                <DropdownItem onClick={myEventsHandler} active={rSelected === "myEvents"}>My Events</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
+          <ul className="events-list">
+            {events.map((event) => (
+              <li key={event._id}>
+                <header style={{ backgroundImage: `url(${event.thumbnail_url})` }}>
+                  {event.user === user_id ? (
+                    <div>
+                      <Button
+                        color="danger"
+                        size="sm"
+                        onClick={() => deleteEventHandler(event._id)}
+                      >
+                        Delete
                     </Button>
+                    </div>
+                  ) : (
+                      ""
+                    )}
+                </header>
+                <strong>{event.title}</strong>
+                <span>Event Type: {event.eventType}</span>
+                <span>Event Date: {moment(event.date).format("l")}</span>
+                <span>Event Price: {parseFloat(event.price).toFixed(2)}</span>
+                <span>Event Description: {event.description}</span>
+
+                { event.user !== user_id ? (
+                  <div>
+                    <Button color="primary" onClick={() => registrationRequestHandler(event)}>Registration Request</Button>
                   </div>
                 ) : (
-                    ""
-                  ) }
-              </header>
-              <strong>{ event.title }</strong>
-              <span>Event Type: { event.eventType }</span>
-              <span>Event Date: { moment(event.date).format("l") }</span>
-              <span>Event Price: { parseFloat(event.price).toFixed(2) }</span>
-              <span>Event Description: { event.description }</span>
-
-              { event.user !== user_id ? (
-                <div>
-                  <Button color="primary" onClick={ () => registrationRequestHandler(event) }>Registration Request</Button>
-                </div>
-              ) : (
-                  <div className="viewBtn">
-                    <Link to={ "/event/participants" } onClick={ () => viewParticipantsHandler(event._id) }>View Participants</Link>
-                  </div>
-                ) }
-            </li>
-          )) }
-        </ul>
-        { error ? (
-          <Alert className="event-validation" color="danger">
-            {messageHandler }
-          </Alert>
-        ) : (
-            ""
-          ) }
-        { success ? (
-          <Alert className="event-validation" color="success">
-            {messageHandler }
-          </Alert>
-        ) : (
-            ""
-          ) }
-      </div>
+                    <Button color="info" onClick={() => viewParticipantsHandler(event._id)}>View Participants
+                    </Button>
+                  )}
+              </li>
+            ))}
+          </ul>
+          {error ? (
+            <Alert className="event-validation" color="danger">
+              {messageHandler}
+            </Alert>
+          ) : (
+              ""
+            )}
+          {success ? (
+            <Alert className="event-validation" color="success">
+              {messageHandler}
+            </Alert>
+          ) : (
+              ""
+            )}
+        </div>
       </Container>
     </>
   );
