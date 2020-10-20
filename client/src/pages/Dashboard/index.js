@@ -6,6 +6,11 @@ import { Button, ButtonGroup, Alert, Dropdown, DropdownItem, DropdownMenu, Dropd
 import { Link } from 'react-router-dom';
 import socketio from 'socket.io-client';
 import EventList from '../../components/EventList/Event';
+import Toast from '../../components/Toast/Toast';
+import checkIcon from '../../assets/check.svg';
+import errorIcon from '../../assets/error.svg';
+import infoIcon from '../../assets/info.svg';
+import warningIcon from '../../assets/warning.svg';
 // import "./Dashboard.css";
 // import '../assets/css/main.css'
 // import '../../components/assets/css/main.css'
@@ -22,8 +27,11 @@ export default function Dashboard({ history }) {
   const [messageHandler, setMessageHandler] = useState('');
   const [eventRequests, setEventRequests] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [eventRequestMessage, setEventRequestMessage] = useState('');
-  const [eventRequestSuccess, setEventRequestSuccess] = useState(false);
+
+  const [list, setList] = useState([]);
+  let [checkValue, setCheckValue] = useState(false);
+  const [autoDeleteTime, setAutoDeleteTime] = useState(5);
+  let toastProperties = null;
 
   const toggle = () => setDropdownOpen(!dropdownOpen);
 
@@ -68,50 +76,62 @@ export default function Dashboard({ history }) {
     }
   };
 
-  const registrationRequestHandler = async (event) => {
-    try {
-      await api.post(`/registration/${event.id}`, {}, { headers: { user } });
-      setSuccess(true);
-      setMessageHandler(`The registration request for the event ${event.title} made successfully!`);
-      // setRegistrationStatus('Requested');
-      setTimeout(() => {
-        setSuccess(false);
-        filterHandler(null);
-        setMessageHandler('');
-      }, 2500);
-    } catch (error) {
-      setError(true);
-      setMessageHandler('Error while registering for event!');
-      // setRegistrationStatus('Failed');
-      setTimeout(() => {
-        setError(false);
-        setMessageHandler('');
-        // setRegistrationStatus('Registration Request');
-      }, 2000);
-    }
-  }
+  const showToast = (type, message) => {
+    const id = Math.floor((Math.random() * 101) + 1);
 
-  const viewParticipantsHandler = async (event) => {
-    try {
-      localStorage.setItem("eventId", event);
-      history.push('/event/participants')
-    } catch (error) {
-      console.log(error);
+    switch (type) {
+      case 'success':
+        toastProperties = {
+          id,
+          title: 'Success',
+          description: message,
+          backgroundColor: '#5cb85c',
+          icon: checkIcon
+        }
+        break;
+      case 'danger':
+        toastProperties = {
+          id,
+          title: 'Danger',
+          description: message,
+          backgroundColor: '#d9534f',
+          icon: errorIcon
+        }
+        break;
+      case 'info':
+        toastProperties = {
+          id,
+          title: 'Info',
+          description: message,
+          backgroundColor: '#5bc0de',
+          icon: infoIcon
+        }
+        break;
+      case 'warning':
+        toastProperties = {
+          id,
+          title: 'Warning',
+          description: message,
+          backgroundColor: '#f0ad4e',
+          icon: warningIcon
+        }
+        break;
+
+      default:
+        setList([]);
     }
+
+    setList([...list, toastProperties]);
   }
 
   const acceptEventHandler = async (eventId) => {
     try {
       await api.post(`/registration/${eventId}/approval`, {}, { headers: { user } });
 
-      setEventRequestSuccess(true);
-      setEventRequestMessage("Event approved successfully!");
+      showToast("success", "Registration for the Event approved successfully!");
       removeNotificationFromDashboard(eventId);
-      setTimeout(() => {
-        setEventRequestSuccess(false);
-        setEventRequestMessage('');
-      }, 2000);
     } catch (error) {
+      showToast("danger", "Registration for the Event not approved!");
       console.log(error);
     }
   }
@@ -120,14 +140,10 @@ export default function Dashboard({ history }) {
     try {
       await api.post(`/registration/${eventId}/rejection`, {}, { headers: { user } });
 
-      setEventRequestSuccess(true);
-      setEventRequestMessage("Event rejected!");
+      showToast("success", "Registration for the Event rejected successfully!");
       removeNotificationFromDashboard(eventId);
-      setTimeout(() => {
-        setEventRequestSuccess(false);
-        setEventRequestMessage('');
-      }, 2000);
     } catch (error) {
+      showToast("danger", "Registration for the Event not rejected!");
       console.log(error);
     }
   }
@@ -173,9 +189,6 @@ export default function Dashboard({ history }) {
           )
         }) }
       </ul>
-      {eventRequestSuccess ?
-        <Alert className="event-validation" color="success">{ eventRequestMessage }</Alert>
-        : "" }
       <Container>
         <div className="dashboard-page">
           <div className="filter-panel">
@@ -231,20 +244,23 @@ export default function Dashboard({ history }) {
             )) }
           </ul> */}
           { error ? (
-            <Alert className="event-validation" color="danger">
-              {messageHandler }
-            </Alert>
+            showToast("danger", messageHandler)
           ) : (
               ""
             ) }
           { success ? (
-            <Alert className="event-validation" color="success">
-              {messageHandler }
-            </Alert>
+            showToast("danger", messageHandler)
           ) : (
               ""
             ) }
         </div>
+
+        <Toast
+          toastList={ list }
+          position={ "top-right" }
+          autoDelete={ checkValue }
+          autoDeleteTime={ autoDeleteTime }
+        />
       </Container>
     </>
   );
