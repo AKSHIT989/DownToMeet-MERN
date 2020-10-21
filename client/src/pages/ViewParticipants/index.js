@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-// import { Button, ButtonGroup } from "reactstrap";
 import api from '../../Services/api';
 import "./participants.css";
 import { Container } from 'reactstrap';
@@ -16,15 +15,13 @@ export default function ViewParticipants() {
 
     const getParticipants = async () => {
         try {
-            // console.log(eventId);
             const response = await api.get(`/event/participants/${eventId}`, { headers: { user: user } });
             setEventParticipants(response.data);
         } catch (error) {
             console.log(error);
         }
     }
-    // console.log(eventParticipants.length)
-    
+
     return (
         <Container>
             <ul className="participants">

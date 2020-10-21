@@ -15,7 +15,6 @@ export default function MyRegistrations() {
     const getMyEvents = async () => {
         try {
             const response = await api.get('/registration', { headers: { user } })
-            // console.log(response.data);
             setMyEvents(response.data);
         } catch (error) {
             console.log(error);
@@ -30,13 +29,6 @@ export default function MyRegistrations() {
                 await api.post(`/registration/${eventId}/approval`, {}, { headers: { user } });
             else
                 await api.post(`/registration/${eventId}/rejection`, {}, { headers: { user } });
-            // setEventRequestSuccess(true);
-            // setEventRequestMessage("Event approved successfully!");
-            // removeNotificationFromDashboard(eventId);
-            // setTimeout(() => {
-            //     setEventRequestSuccess(false);
-            //     setEventRequestMessage('');
-            // }, 2000);
             getMyEvents();
         } catch (error) {
             console.log(error);
@@ -44,8 +36,6 @@ export default function MyRegistrations() {
     }
 
     return (
-        <>
-        {/* <h1 style={{backgroundColor:"darkblue", color:"white", alignContent:"center"}}>Akshit</h1> */}
         <Container>
             <ul className="events">
                 {myEvents.map(event => (
@@ -73,6 +63,5 @@ export default function MyRegistrations() {
                 ))}
             </ul>
         </Container>
-        </>
     );
 }

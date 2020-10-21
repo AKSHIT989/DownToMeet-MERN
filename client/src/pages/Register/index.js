@@ -1,14 +1,9 @@
 import React, { useState, useContext } from "react";
 import api from "../../Services/api";
-import { Button, Form, FormGroup, Input, Container, Alert } from "reactstrap";
+import { Button, Form, FormGroup, Alert } from "reactstrap";
 import { UserContext } from '../../user-context';
-// import '../assets/css/style.css'
 import '../../assets/LoginRegister/css/style.css'
 import SignUp from '../../assets/LoginRegister/images/signup-image.jpg'
-
-// import PersonIcon from '@material-ui/icons/Person';
-// import EmailIcon from '@material-ui/icons/Email';
-// import LockIcon from '@material-ui/icons/Lock';
 
 import { MdLock, MdEmail, MdPerson } from "react-icons/md";
 

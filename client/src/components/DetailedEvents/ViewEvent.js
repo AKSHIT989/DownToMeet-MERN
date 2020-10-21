@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
-import { Button, ButtonGroup } from "reactstrap";
+import { Button } from "reactstrap";
 import api from '../../Services/api';
-import { Container } from 'reactstrap';
 import './ViewEvent.css'
 
-export default function ViewEvent({history}) {
+export default function ViewEvent({ history }) {
     const user = localStorage.getItem("user");
     const user_id = localStorage.getItem("user_id");
     const eventId = localStorage.getItem("eventId");
@@ -20,7 +18,6 @@ export default function ViewEvent({history}) {
 
     const getEventDetails = async () => {
         try {
-            // console.log(eventId);
             const response = await api.get(`/events/details/${eventId}`, { headers: { user: user } });
             setEventSelected(response.data);
         } catch (error) {
@@ -60,33 +57,32 @@ export default function ViewEvent({history}) {
         // <Container>
         <div className="info-container">
             <div className="header-image"
-               style={{backgroundImage: `url(${eventSelected.thumbnail_url})`}}
+                style={{ backgroundImage: `url(${eventSelected.thumbnail_url})` }}
             ></div>
-            <center><h1 className="title">{ eventSelected.title }</h1></center>
+            <center><h1 className="title">{eventSelected.title}</h1></center>
             <div className="content">
-                <b>Event description: </b> { eventSelected.description } <br/>
-                <b>Event type: </b> { eventSelected.eventType } <br/>
-                <b>Event Date: </b> { moment(eventSelected.date).format('l') } <br/>
-                <b>Event Price: </b> { " ₹ " + eventSelected.price }
+                <b>Event description: </b> {eventSelected.description} <br />
+                <b>Event type: </b> {eventSelected.eventType} <br />
+                <b>Event Date: </b> {moment(eventSelected.date).format('l')} <br />
+                <b>Event Price: </b> {" ₹ " + eventSelected.price}
             </div>
             { eventSelected.user !== user_id ? (
                 <div>
-                    <Button style={{width:"100%"}} color="primary" disabled={ isRequested } onClick={ () => registrationRequestHandler(eventSelected) }>{ registrationStatus }</Button>
+                    <Button style={{ width: "100%" }} color="primary" disabled={isRequested} onClick={() => registrationRequestHandler(eventSelected)}>{registrationStatus}</Button>
                 </div>
             ) : (
                     <div className="outer-div">
                         <div className="btn-outer">
-                            <Button style={{width:"100%"}} color="info" onClick={ () => viewParticipantsHandler(eventSelected._id) }>View Participants
+                            <Button style={{ width: "100%" }} color="info" onClick={() => viewParticipantsHandler(eventSelected._id)}>View Participants
                             </Button>
                         </div>
                         <div>
-                            <Button style={{width:"100%"}} color="danger" to="/" className="delBtn" onClick={ () => deleteEventHandler(eventSelected._id) }>
+                            <Button style={{ width: "100%" }} color="danger" to="/" className="delBtn" onClick={() => deleteEventHandler(eventSelected._id)}>
                                 Delete
                             </Button>
                         </div>
                     </div>
-                ) }
+                )}
         </div>
-        // </Container>
     );
 }

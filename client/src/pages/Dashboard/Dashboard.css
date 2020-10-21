@@ -20,7 +20,6 @@ ul.events-list li {
 
 ul.events-list li header {
   width: 100%;
-  /* height: 240px; */
   z-index: 99;
   background-size: contain;
   background-repeat: no-repeat;

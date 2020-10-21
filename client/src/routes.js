@@ -8,6 +8,8 @@ import MyRegistrations from "./pages/MyRegistrations";
 import TopNav from "./components/NavigationBar/TopNav";
 import ViewParticipants from "./pages/ViewParticipants";
 import ViewEvent from "./components/DetailedEvents/ViewEvent";
+import NotFound from "./components/404";
+
 export default function Routes() {
   return (
     <BrowserRouter>
@@ -20,6 +22,7 @@ export default function Routes() {
         <Route path="/login" exact component={ Login } />
         <Route path="/register" exact component={ Register } />
         <Route path="/events" component={ EventsPage } />
+        <Route path='*' component={NotFound}/>
       </Switch>
     </BrowserRouter>
   );

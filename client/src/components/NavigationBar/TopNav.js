@@ -1,16 +1,9 @@
 import React, { useState, useContext } from 'react';
 import {
-    Collapse,
-    NavbarToggler,
-    NavbarBrand,
     Nav,
     NavLink,
     Button,
-    Jumbotron,
-    Container
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import Navbar from 'react-bootstrap/Navbar'
 import { UserContext } from '../../user-context';
 import "../../pages/Dashboard/Dashboard.css";
 import './assets/css/main.css'
@@ -33,8 +26,8 @@ const TopNav = () => {
         <div>
 
             <header id="header">
-                <div class="inner">
-                    <a href="/" class="logo">Down To Meet</a>
+                <div className="inner">
+                    <a href="/" className="logo">Down To Meet</a>
                     <Nav className="mr-auto" id="nav">
                         <NavLink href="/" style={{ color: "white" }}>Dashboard</NavLink>
                         <NavLink href="/events" style={{ color: "white" }}>Create Event</NavLink>
@@ -46,24 +39,12 @@ const TopNav = () => {
                 </div>
             </header>
 
-            <a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
-            {/* <Navbar color="primary" light expand="md" style={{backgroundColor: "#071740", position: "sticky"}} variant="dark" fixed="top">
-            <NavbarBrand href="/" style={{color:"white",fontWeight:"bold"}}>Down To Meet</NavbarBrand>
-
-                <Nav className="mr-auto">
-                    <NavLink href="/" style={{color:"white"}}>Dashboard</NavLink>
-                    <NavLink href="/events" style={{color:"white"}}>Create Event</NavLink>
-                    <NavLink href="/myregistrations" style={{color:"white"}}>Registrations Request</NavLink>
-                </Nav>
-                <Button color="danger"><Link to="/login" style={{color:"white"}} onClick={ logoutHandler }>Logout</Link></Button>
-                
-            </Navbar>  */}
-
+            <a href="#menu" className="navPanelToggle"><span className="fa fa-bars"></span></a>
         </div>
         :
         <div><header id="header">
-            <div class="inner">
-                <center><a href="/" class="logo">Down To Meet</a></center>
+            <div className="inner">
+                <center><a href="/" className="logo">Down To Meet</a></center>
             </div>
         </header>
         </div>;

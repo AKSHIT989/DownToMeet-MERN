@@ -24,7 +24,6 @@ module.exports = {
           firstName: user.firstName,
           lastName: user.lastName,
         };
-        // return res.json(userResponse);
         return jwt.sign({ user: userResponse }, "secret", (err, token) => {
           return res.json({
             user: token,

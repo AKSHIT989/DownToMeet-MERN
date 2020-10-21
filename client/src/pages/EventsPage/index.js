@@ -1,23 +1,17 @@
 import React, { useEffect, useMemo, useState } from "react";
 import api from "../../Services/api";
-import CameraIcon from "../../assets/camera.png";
 
 import {
   Alert,
   Button,
-  ButtonDropdown,
   Container,
   Col,
-  DropdownToggle,
-  DropdownItem,
-  DropdownMenu,
   Form,
   FormGroup,
   Input,
   InputGroup,
   InputGroupAddon,
-  Label,
-  Modal
+  Label
 } from "reactstrap";
 import "./events.css";
 
@@ -100,18 +94,12 @@ function EventsPage({ history }) {
 
     return "";
   };
-  const eventTypeHandler = (eventTyp) => {
-    setEventType(eventTyp);
-    // console.log(eventType);
-  };
   return (
     <Container style={{ marginTop: "5%" }}>
 
       <center className="logo"><h2>Create your event</h2></center>
 
       <Form onSubmit={handleEventSubmit}>
-        {/* <div className="input-group"> */}
-        {/* <Form> */}
 
         <FormGroup row>
           <Label for="exampleTitle" sm={2}>Event Title</Label>
@@ -186,7 +174,6 @@ function EventsPage({ history }) {
               value={date}
               onChange={(event) => {
                 setDate(event.target.value);
-                // console.log(new Date());
               }}
             />
           </Col>
@@ -202,109 +189,6 @@ function EventsPage({ history }) {
           </Col>
         </FormGroup>
 
-
-        {/* </Form> */}
-
-        {/* <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-            <Label>Upload Image</Label>
-            <Label
-              id="thumbnail"
-              className={ thumbnail ? "has-thumnail" : "" }
-              style={ { backgroundImage: `url(${preview})` } }
-            >
-              <Input
-                id="thumbnail"
-                type="file"
-                onChange={ (event) => {
-                  setThumbnail(event.target.files[0]);
-                } }
-              />
-              <img
-                src={ CameraIcon }
-                style={ { maxWidth: "50px" } }
-                alt="Upload icon image"
-              />
-            </Label>
-          </FormGroup> */}
-
-        {/* <FormGroup row className="mb-2 mr-sm-2 mb-sm-0">
-            <Label sm={2}>Select Event Type</Label>
-            <Col>
-            <ButtonDropdown isOpen={ dropdownOpen } toggle={ toggle }>
-              <Button id="caret" value={ eventType } disabled>
-                { eventType }
-              </Button>
-              <DropdownToggle caret />
-              <DropdownMenu>
-                <DropdownItem onClick={ () => eventTypeHandler("webinar") }>
-                  webinar
-                </DropdownItem>
-                <DropdownItem onClick={ () => eventTypeHandler("workshop") }>
-                  workshop
-                </DropdownItem>
-                <DropdownItem onClick={ () => eventTypeHandler("seminar") }>
-                  seminar
-                </DropdownItem>
-              </DropdownMenu>
-            </ButtonDropdown>
-            </Col>
-          </FormGroup>
-          <FormGroup row className="mb-2 mr-sm-2 mb-sm-0">
-            <Label>Title</Label>
-            <Col>
-            <Input
-              placeholder="Enter event title"
-              id="title"
-              type="text"
-              value={ title }
-              onChange={ (event) => {
-                setTitle(event.target.value);
-              } }
-            />
-            </Col>
-          </FormGroup>
-          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-            <Label>Event Description</Label>
-            <Input
-              placeholder="Enter event description"
-              id="description"
-              type="text"
-              value={ description }
-              onChange={ (event) => {
-                setDescription(event.target.value);
-              } }
-            />
-          </FormGroup>
-
-          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-            <Label>Event price</Label>
-            <Input
-              placeholder="Enter price of event(₹)"
-              id="price"
-              type="number"
-              min="0"
-              step="any"
-              value={ price }
-              onChange={ (event) => {
-                setPrice(event.target.value);
-              } }
-            />
-          </FormGroup>
-
-          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-            <Label>Event date</Label>
-            <Input
-              placeholder="Enter date of event"
-              id="datefield"
-              type="date"
-              value={ date }
-              onChange={ (event) => {
-                setDate(event.target.value);
-                // console.log(new Date());
-              } }
-            />
-          </FormGroup> */}
-        {/* </div> */}
         <br />
         <FormGroup>
           <Button className="submit-btn" color="success" size="lg">Create Event</Button>

@@ -32,7 +32,6 @@ io.on('connection', socket => {
   connectedUsers[user] = socket.id
 })
 
-// app.use()
 
 app.use((req, res, next) => {
   req.io = io;
