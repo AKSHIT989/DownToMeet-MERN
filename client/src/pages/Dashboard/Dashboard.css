@@ -8,7 +8,7 @@ ul.events-list {
   width: 100%;
   list-style: none;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 20px;
   margin-bottom: 30px;
 }
@@ -20,7 +20,8 @@ ul.events-list li {
 
 ul.events-list li header {
   width: 100%;
-  height: 240px;
+  /* height: 240px; */
+  z-index: 99;
   background-size: contain;
   background-repeat: no-repeat;
   border-radius: 4px;
@@ -61,4 +62,64 @@ ul.notifications li {
   ul.events-list {
     grid-template-columns: 1fr;
   }
+}
+
+.deleteButton {
+  position: absolute;
+  z-index: 99;
+  display: inline;
+}
+.li-card {
+  position: relative;
+  z-index: 9;
+  background-color: white;
+  width: 100%;
+  list-style: none;
+  border: 1px solid #dedede;
+  -webkit-box-shadow: 11px 13px 17px -11px rgba(0, 0, 0, 0.43);
+  -moz-box-shadow: 11px 13px 17px -11px rgba(0, 0, 0, 0.43);
+  box-shadow: 11px 13px 17px -11px rgba(0, 0, 0, 0.09);
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.li-picture {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 10px 10px 0 0;
+}
+
+.li-card p {
+  color: #464646;
+  margin: 0;
+  font-size: 12px;
+}
+
+.li-card b {
+  width: 57px;
+  display: inline-block;
+}
+
+.li-card div {
+  padding: 0 10px 10px 10px;
+}
+
+.li-card a {
+  border-top: 1px solid #dedede;
+  padding: 10px 0;
+  font-weight: bold;
+  color: #9c9b9b;
+  text-transform: uppercase;
+  font-size: 12px;
+  display: block;
+  margin-top: 17px;
+  transition: 0.5s ease;
+}
+
+.li-card a:hover {
+  cursor: pointer;
+  opacity: 0.7;
 }

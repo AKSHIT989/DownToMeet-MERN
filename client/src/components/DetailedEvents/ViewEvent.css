@@ -1,0 +1,140 @@
+ev-details {
+  margin: auto;
+  width: 50%;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.ev-picture {
+  margin: 20px;
+  max-height: 300px;
+  max-width: 300px;
+}
+
+.ev-details p {
+  margin: 0px 0.5em;
+}
+
+.ev-details a {
+  color: white;
+  background-color: #17a2b8;
+  padding: 10px;
+  border-radius: 10px;
+  text-decoration: none;
+  margin: 0px 15px;
+}
+
+.ev-details a:hover {
+  text-decoration: none;
+}
+
+.outer-div {
+  padding: 10px;
+}
+
+.btn-outer {
+  margin-bottom: 15px;
+}
+
+.ev-details .delBtn {
+  background-color: red;
+  margin: 15px 15px;
+}
+
+.li-card {
+  position: relative;
+  z-index: 9;
+  background-color: white;
+  width: 100%;
+  list-style: none;
+  border: 1px solid #dedede;
+  -webkit-box-shadow: 11px 13px 17px -11px rgba(0, 0, 0, 0.43);
+  -moz-box-shadow: 11px 13px 17px -11px rgba(0, 0, 0, 0.43);
+  box-shadow: 11px 13px 17px -11px rgba(0, 0, 0, 0.09);
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.li-picture {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 10px 10px 0 0;
+}
+
+.li-card p {
+  color: #464646;
+  margin: 0;
+  font-size: 12px;
+}
+
+.li-card b {
+  width: 57px;
+  display: inline-block;
+}
+
+.li-card div {
+  padding: 0 10px 10px 10px;
+}
+
+.li-card a {
+  border-top: 1px solid #dedede;
+  padding: 10px 0;
+  font-weight: bold;
+  color: #9c9b9b;
+  text-transform: uppercase;
+  font-size: 12px;
+  display: block;
+  margin-top: 17px;
+  transition: 0.5s ease;
+}
+
+.li-card a:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.info-container {
+  position: relative;
+  background-color: white;
+  min-height: 240px;
+  -webkit-box-shadow: 3px 3px 14px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 3px 3px 14px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 3px 3px 14px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  width: 700px;
+  margin: auto;
+  margin-top: 5%;
+}
+.info-container .header-image {
+  border-radius: 10px 10px 0 0;
+  height: 200px;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  color: white;
+  text-transform: uppercase;
+  padding: 15px;
+}
+
+.small-grey-text {
+  border-top: 1px solid #b7b1b1;
+  color: #757373;
+  padding-top: 5px;
+  font-size: 13px;
+  width: fit-content;
+  width: -moz-fit-content;
+}
+
+.info-container .title {
+  margin: 0;
+}
+
+.info-container .content {
+  padding: 20px;
+  /* margin-left: 10%; */
+}

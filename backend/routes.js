@@ -75,4 +75,10 @@ routes.delete("/event/:eventId", verifyToken, EventController.delete);
 routes.post("/user/register", UserController.createUser);
 routes.get("/user/:userId", UserController.getUserById);
 
+//Get Event Details
+routes.get(
+  "/events/details/:eventId",
+  verifyToken,
+  EventController.getEventDetails
+);
 module.exports = routes;

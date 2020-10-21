@@ -11,7 +11,7 @@ module.exports = {
         res.statusCode(401);
       } else {
         const { title, description, price, eventType, date } = req.body;
-        console.log("Event type is " + price);
+        // console.log("Event type is " + price);
         const { filename } = req.file;
 
         const user = await User.findById(authData.user._id);
@@ -56,4 +56,24 @@ module.exports = {
       }
     });
   },
+  getEventDetails(req, res) {
+    jwt.verify(req.token, "secret", async (err, authData) => {
+      if (err) {
+        res.sendStatus(401);
+      } else {
+        try {
+          const { eventId } = req.params;
+          const eventObj = await Event.findById(eventId)
+          if (eventObj) {
+            // console.log(eventObj)
+            return res.json(eventObj);
+          } else {
+            console.log("Event not found")
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    })
+  }
 };

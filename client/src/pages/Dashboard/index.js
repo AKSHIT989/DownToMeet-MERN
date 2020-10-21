@@ -5,6 +5,8 @@ import { Container } from 'reactstrap';
 import { Button, ButtonGroup, Alert, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Link } from 'react-router-dom';
 import socketio from 'socket.io-client';
+// import ViewEvent from '../../components/DetailedEvents/ViewEvent'
+import EventList from '../../components/EventList/Event';
 // import "./Dashboard.css";
 // import '../assets/css/main.css'
 // import '../../components/assets/css/main.css'
@@ -83,7 +85,7 @@ export default function Dashboard({ history }) {
       const response = await api.get(url, { headers: { user: user } });
       response.data.events.sort((a,b) =>{ return new Date(a.date) - new Date(b.date);});
       setEvents(response.data.events);
-      console.log(response.data.events);
+      // console.log(response.data.events);
     } catch (error) {
       history.push("/login");
     }
@@ -158,8 +160,20 @@ export default function Dashboard({ history }) {
     console.log(newEvent);
     setEventRequests(newEvent);
   }
-  const redirectHandler = () => {
+  const redirectHandler = (e) => {
     history.push("/events");
+  }
+
+  
+  const preDefault = (e)=>{
+    e.preventDefault();
+  }
+  const linkToEvent=(_id)=>{
+    // e.preventDefault();
+    // preDefault()
+    localStorage.setItem("eventId", _id)
+    history.push('/eventdetails')
+    console.log('abc')
   }
   return (
     <>
@@ -213,13 +227,15 @@ export default function Dashboard({ history }) {
               </DropdownMenu>
             </Dropdown>
           </div>
+          {/* <EventList events={ events } /> */}
           <ul className="events-list">
             {events.map((event) => (
               <li key={event._id}>
-                <header style={{ backgroundImage: `url(${event.thumbnail_url})` }}>
+                {/* <header style={{ backgroundImage: `url(${event.thumbnail_url})` }}> */}
+                <header>
                   {event.user === user_id ? (
                     <div>
-                      <Button
+                      <Button className="deleteButton"
                         color="danger"
                         size="sm"
                         onClick={() => deleteEventHandler(event._id)}
@@ -231,23 +247,50 @@ export default function Dashboard({ history }) {
                       ""
                     )}
                 </header>
-                <strong>{event.title}</strong>
+                <li className="li-card">
+                {/* {event.user === user_id ? (
+                    <div>
+                      <Button className="deleteButton"
+                        color="danger"
+                        size="sm"
+                        onClick={() => deleteEventHandler(event._id)}
+                      >
+                        Delete
+                    </Button>
+                    </div>
+                  ) : (
+                      ""
+                    )} */}
+                  <div className="li-picture" style={{ backgroundImage: `url(${event.thumbnail_url})` }}/>
+                    <div>
+                      <h2 style={{height:"48px"}}>{event.title}</h2>
+                      <p><b>Date:</b> {moment(event.date).format("LL")}</p>
+                      <p><b>Price:</b> ₹{event.price}</p>
+                      {/* <Link onClick={console.log("eventId", event._id)} to='/eventdetails'>Link to Event</Link> */}
+                      <Link onClick={()=>{linkToEvent(event._id)}} >Link to event</Link>
+                      {/* <Button onClick={console.log('Akshit')}></Button> */}
+                    </div>
+                {/* <strong>{event.title}</strong>
                 <span>Event Type: {event.eventType}</span>
                 <span>Event Date: {moment(event.date).format("l")}</span>
                 <span>Event Price: {parseFloat(event.price).toFixed(2)}</span>
-                <span>Event Description: {event.description}</span>
-
+                <span>Event Description: {event.description}</span> */}
+                <center>
                 { event.user !== user_id ? (
                   <div>
-                    <Button color="primary" onClick={() => registrationRequestHandler(event)}>Registration Request</Button>
+                    <Button style={{width:"100%"}} color="primary" onClick={() => registrationRequestHandler(event)}>Registration Request</Button>
                   </div>
                 ) : (
-                    <Button color="info" onClick={() => viewParticipantsHandler(event._id)}>View Participants
+                  <div>
+                    <Button style={{width:"100%"}} color="info" onClick={() => viewParticipantsHandler(event._id)}>View Participants
                     </Button>
+                    </div>
                   )}
+                  </center>
+                </li>
               </li>
             ))}
-          </ul>
+          </ul> 
           {error ? (
             <Alert className="event-validation" color="danger">
               {messageHandler}
