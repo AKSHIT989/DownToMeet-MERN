@@ -1,6 +1,6 @@
 # DownToMeet-MERN
-Down To Meet: An event management website built using MERN Stack
-Table of Content
+Down To Meet: An event management website built using React, Express, Node.js, MongoDB Atlas
+Table of Content for README.md
 1) Steps to make this project work
 2) Features
 3) Screenshots
@@ -26,12 +26,17 @@ npm install
 6) Type ```npm run dev``` or ```npm start```,this will make the react app start at localhost:3000
 
 ### Features:
-1) Password hashing
-2) Using tokens for sharing userid between processes
-3) creating event
-4) filtering events based on seminar, workshop, webinars, your events
-5) deleting events.
-6) Requesting registration for event.
+1) Password hashing during register/login for security using npm package "bcrypt"
+2) Using tokens and verifying for protecting routes using npm package "jsonwebtoken"
+3) Creating event with proper validations
+4) Storing images locally and using timestamp for unique identification of image using npm package "multer"
+5) Displaying events ascendingly sorted with base of Date
+6) Filtering events based on event-type(seminar/webinar/workshop and Your events)
+7) Deleting events that you have created.
+8) Requesting registration for event as an attendee.
+9) Accepting/Rejecting participant request as an organizer of event.
+10) Viewing number of particpants and all details of particpants.
+
 
 ### Screenshots:
 ![Login Page](https://github.com/AKSHIT989/DownToMeet-MERN/blob/master//client/src/assets/Screenshots/ss1.png?raw=true)
