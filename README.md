@@ -1,6 +1,6 @@
 # DownToMeet-MERN
 Down To Meet: An event management website built using React, Express, Node.js, MongoDB Atlas
-Table of Content for README.md
+### Table of Content for README.md
 1) Steps to make this project work
 2) Features
 3) Screenshots
