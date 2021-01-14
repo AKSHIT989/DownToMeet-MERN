@@ -4,15 +4,16 @@ const multer = require("multer");
 const UserController = require("./controllers/UserController");
 const EventController = require("./controllers/EventController");
 const DashboardController = require("./controllers/DashboardController");
-const uploadConfig = require("./config/upload");
+// const uploadConfig = require("./config/upload");
 const verifyToken = require("./config/verifyToken");
 const LoginController = require("./controllers/LoginController");
 const RegistrationController = require("./controllers/RegistrationController");
 const ApprovalController = require("./controllers/ApprovalController");
 const RejectionController = require("./controllers/RejectionController");
+const uploadToS3 = require('./config/s3Upload')
 
 const routes = express.Router();
-const upload = multer(uploadConfig);
+// const upload = multer(uploadConfig);
 
 routes.get("/status", (req, res) => {
   res.send({ status: 200 });
@@ -66,7 +67,7 @@ routes.get("/event/:eventId", verifyToken, DashboardController.getEventById);
 routes.post(
   "/event",
   verifyToken,
-  upload.single("thumbnail"),
+  uploadToS3.single("thumbnail"),
   EventController.createEvent
 );
 routes.delete("/event/:eventId", verifyToken, EventController.delete);
