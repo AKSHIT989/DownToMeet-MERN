@@ -1,7 +1,7 @@
 # DownToMeet-MERN
 Frontend Hosted on: https://downtomeet-akshit-soneji.web.app/
 
-API Hosted on: https://downtomeet-akshit.herokuapp.com/
+API Hosted on: https://downtomeet-api.herokuapp.com/
 
 Down To Meet: An event management website built using React, Express, Node.js, MongoDB Atlas, AWS S3, API hosted on Heroku.
 ### Table of Content for README.md
