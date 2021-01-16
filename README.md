@@ -1,5 +1,7 @@
 # DownToMeet-MERN
-Down To Meet: An event management website built using React, Express, Node.js, MongoDB Atlas
+Frontend Hosted on: https://downtomeet-akshit-soneji.web.app/
+API Hosted on: https://downtomeet-akshit.herokuapp.com/
+Down To Meet: An event management website built using React, Express, Node.js, MongoDB Atlas, Stored images in AWS S3, API hosted on Heroku.
 ### Table of Content for README.md
 1) Steps to make this project work
 2) Features
@@ -11,11 +13,14 @@ Down To Meet: An event management website built using React, Express, Node.js, M
 ```
     "git clone https://github.com/AKSHIT989/DownToMeet-MERN.git"
 ```
-2) open cmd with pwd ../DownToMeet-MERN and type 
+2) open cmd with pwd ./DownToMeet-MERN and type 
 ```"npm install"``` this will create npm  modules and package-lock.json
 3) create .env file with content like<br>
 ```
   mongo_DB_Connection = mongodb+srv://<username>:<password>@cluster0.himhp.mongodb.net/<dbname>?retryWrites=true&w=majority
+  ACCESS_KEY_ID = "Provided through AWS S3"
+  SECRET_ACCESS_KEY = "Provided through AWS S3"
+  
 ```
 4) Type ```npm run dev``` or ```nodemon backend/server```,this will make the express server run at localhost:8000
 5) For frontend to work follow these steps
@@ -28,8 +33,8 @@ npm install
 ### Features:
 1) Password hashing during register/login for security using npm package "bcrypt"
 2) Using tokens and verifying for protecting routes using npm package "jsonwebtoken"
-3) Creating event with proper validations
-4) Storing images locally and using timestamp for unique identification of image using npm package "multer"
+3) Creating events with proper validations
+4) Storing images on AWS S3 and using timestamp for unique identification of image using npm package "multer"
 5) Displaying events ascendingly sorted with base of Date
 6) Filtering events based on event-type(seminar/webinar/workshop and Your events)
 7) Deleting events that you have created.
