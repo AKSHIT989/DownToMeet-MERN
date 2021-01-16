@@ -12,7 +12,7 @@ module.exports = {
       } else {
         const { title, description, price, eventType, date } = req.body;
         // console.log("Event type is " + price);
-        const { filename } = req.file;
+        const { location } = req.file;
 
         const user = await User.findById(authData.user._id);
 
@@ -27,7 +27,7 @@ module.exports = {
             eventType,
             price: parseFloat(price),
             user: authData.user._id,
-            thumbnail: filename,
+            thumbnail: location,
             date,
           });
 
