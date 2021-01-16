@@ -52,7 +52,7 @@ ev-details {
   -moz-box-shadow: 11px 13px 17px -11px rgba(0, 0, 0, 0.43);
   box-shadow: 11px 13px 17px -11px rgba(0, 0, 0, 0.09);
   border-radius: 10px;
-  margin: 10px;
+  margin: 10px 0;
 }
 
 .li-picture {

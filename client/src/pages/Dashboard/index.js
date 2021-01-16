@@ -27,7 +27,7 @@ export default function Dashboard({ history }) {
   }, []);
 
   const socket = useMemo(() =>
-    socketio('http://localhost:8000', { query: { user: user_id } }),
+    socketio('https://downtomeet-api.herokuapp.com/', { query: { user: user_id } }),
     [user_id]
   );
 
@@ -155,11 +155,10 @@ export default function Dashboard({ history }) {
     history.push("/events");
   }
 
-
   const linkToEvent = (_id) => {
     localStorage.setItem("eventId", _id)
     history.push('/eventdetails')
-    console.log('abc')
+    // console.log('abc')
   }
   return (
     <>

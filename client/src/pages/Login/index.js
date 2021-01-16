@@ -7,7 +7,7 @@ import SignIn from '../../assets/LoginRegister/images/signin-image.jpg'
 
 import { MdLock, MdEmail } from "react-icons/md";
 
-function Login({ history }) {
+function  Login({ history }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);

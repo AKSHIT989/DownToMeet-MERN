@@ -1,19 +1,28 @@
 import React, { useState, useContext } from 'react';
 import {
+    Collapse,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
     Nav,
+    NavItem,
     NavLink,
-    Button,
-} from 'reactstrap';
+    NavbarText,
+    Button
+  } from 'reactstrap';
 import { UserContext } from '../../user-context';
 import "../../pages/Dashboard/Dashboard.css";
 import './assets/css/main.css'
 
 const TopNav = () => {
+
+    const [isOpen, setIsOpen] = useState(false);
+    
     const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
-    const [collapsed, setCollapsed] = useState(true);
-
-    const toggleNavbar = () => setCollapsed(!collapsed);
-
+    // const [collapsed, setCollapsed] = useState(true);
+  
+    // const toggleNavbar = () => setCollapsed(!collapsed);
+  
     const logoutHandler = () => {
         localStorage.removeItem("user");
         localStorage.removeItem("user_id");
@@ -21,33 +30,80 @@ const TopNav = () => {
             setIsLoggedIn(false);
         }, 500);
     }
+    
+  const toggle = () => setIsOpen(!isOpen);
 
+//   return (
+//     <div  style={{background: "#1c1c1c", color: "#d5d5d5"}}>
+//       <Navbar dark expand="md" style={{background: "#1c1c1c", color: "#d5d5d5",display:'flex', justifyContent:'space-evenly'}}>
+//         <NavbarBrand href="/" style={{marginLeft:"5em"}}>
+//             <a href="/" className="navbarLogo">Down To Meet</a>
+//         </NavbarBrand>
+//           <div style={{marginLeft:"1em"}}></div>
+//         <NavbarToggler onClick={toggle} />
+//         <Collapse isOpen={isOpen} navbar>
+//           <Nav className="mr-auto" navbar>
+//             <NavItem>
+//               <NavLink href="/" style={{color:"#d5d5d5"}}>Dashboard</NavLink>
+//             </NavItem>
+//             <NavItem>
+//               <NavLink href="/events" style={{color:"#d5d5d5"}}>Create event</NavLink>
+//             </NavItem>
+//             <NavItem>
+//               <NavLink href="/myregistrations" style={{color:"#d5d5d5"}}>Registration Requests</NavLink>
+//             </NavItem>
+//           </Nav>
+//           <Nav>
+//           <a href="/login" style={{ color: "Red" }} onClick={logoutHandler}>                         <Button color="danger">Logout</Button></a>
+//           </Nav>
+//           <div style={{marginLeft:"1em"}}></div>
+//           <NavbarText >Akshit Soneji</NavbarText>
+//         </Collapse>
+//       </Navbar>
+//       <div style={{lineHeight:"80px"}} />
+
+//     </div>
+//   )
     return isLoggedIn ?
-        <div>
-
-            <header id="header">
-                <div className="inner">
-                    <a href="/" className="logo">Down To Meet</a>
-                    <Nav className="mr-auto" id="nav">
-                        <NavLink href="/" style={{ color: "white" }}>Dashboard</NavLink>
-                        <NavLink href="/events" style={{ color: "white" }}>Create Event</NavLink>
-                        <NavLink href="/myregistrations" style={{ color: "white" }}>Registrations Request</NavLink>
-                        <NavLink href="/login" style={{ color: "Red" }} onClick={logoutHandler}>
-                            <Button color="danger">Logout</Button>
-                        </NavLink>
-                    </Nav>
-                </div>
-            </header>
-
-            <a href="#menu" className="navPanelToggle"><span className="fa fa-bars"></span></a>
-        </div>
-        :
-        <div><header id="header">
-            <div className="inner">
-                <center><a href="/" className="logo">Down To Meet</a></center>
-            </div>
-        </header>
-        </div>;
+    <div  style={{background: "#1c1c1c", color: "#d5d5d5",paddingBottom:"80px"}}>
+    <Navbar dark expand="md" style={{background: "#1c1c1c", color: "#d5d5d5",display:'flex', justifyContent:'space-evenly',position: "fixed",top: 0,width: "100%",zIndex:99999}}>
+      <NavbarBrand href="/">
+          <a href="/" className="navbarLogo">Down To Meet</a>
+      </NavbarBrand>
+        {/* <div style={{marginLeft:"5em"}}></div> */}
+      <NavbarToggler onClick={toggle} />
+      <Collapse isOpen={isOpen} navbar>
+        <Nav className="mr-auto" navbar style={{display:"flex", justifyContent:"space-between"}}>
+          <NavItem>
+            <NavLink href="/" style={{color:"#d5d5d5"}}>Dashboard</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="/events" style={{color:"#d5d5d5"}}>Create event</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="/myregistrations" style={{color:"#d5d5d5"}}>Registration Requests</NavLink>
+          </NavItem>
+        </Nav>
+        <NavbarText ><strong></strong></NavbarText>
+        <div style={{marginLeft:"1em"}}></div>
+        <Nav>
+        <a href="/login" style={{ color: "Red" }} onClick={logoutHandler}>                         <Button color="danger">Logout</Button></a>
+        </Nav>
+        <div style={{marginLeft:"1em"}}></div>
+        <NavbarText >Made by Akshit Soneji</NavbarText>
+      </Collapse>
+    <div style={{lineHeight:"80px"}} />
+    </Navbar>
+  </div>
+    :
+    <div  style={{background: "#1c1c1c", color: "#d5d5d5"}}>
+      <Navbar dark expand="md" style={{background: "#1c1c1c", color: "#d5d5d5",display:'flex', justifyContent:'space-evenly'}}>
+        <NavbarBrand href="/" style={{marginLeft:"1em"}}>
+            <a href="/" className="navbarLogo">Down To Meet</a>
+        </NavbarBrand>
+        <NavbarText>Made by Akshit Soneji</NavbarText>
+        </Navbar>
+    </div>
 }
 
 export default TopNav;

@@ -12,18 +12,20 @@ import NotFound from "./components/404";
 
 export default function Routes() {
   return (
-    <BrowserRouter>
+    <>
       <TopNav />
-      <Switch>
+      {/* <div style={{paddingTop:"80px"}} /> */}
+
+    <BrowserRouter>
         <Route exact path="/" component={ Dashboard } />
+        <Route path="/login" exact component={ Login } />
+        <Route path="/register" exact component={ Register } />
+        <Route path="/events" exact component={ EventsPage } />
         <Route path="/myregistrations" exact component={ MyRegistrations } />
         <Route path="/event/participants" exact component={ ViewParticipants } />
         <Route path="/eventdetails" exact component={ ViewEvent } />
-        <Route path="/login" exact component={ Login } />
-        <Route path="/register" exact component={ Register } />
-        <Route path="/events" component={ EventsPage } />
-        <Route path='*' component={NotFound}/>
-      </Switch>
+        {/* <Route path='/*' component={NotFound}/> */}
     </BrowserRouter>
+    </>
   );
 }

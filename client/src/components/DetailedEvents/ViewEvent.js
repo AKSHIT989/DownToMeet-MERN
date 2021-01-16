@@ -55,7 +55,7 @@ export default function ViewEvent({ history }) {
 
     return (
         // <Container>
-        <div className="info-container">
+        <div className="info-container" width="100%">
             <div className="header-image"
                 style={{ backgroundImage: `url(${eventSelected.thumbnail_url})` }}
             ></div>

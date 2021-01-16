@@ -1960,11 +1960,11 @@ ol li {
 ul {
   list-style: disc;
   margin: 0 0 2em 0;
-  padding-left: 1em;
+  /* padding-left: 1em; */
 }
 
 ul li {
-  padding-left: 0.5em;
+  /* padding-left: 0.5em; */
 }
 
 ul.alt {
@@ -2093,7 +2093,7 @@ article.special {
   text-align: center;
 }
 
-section .inner {
+.inner {
   max-width: 65em;
   width: calc(100% - 6em);
   margin: 0 auto;
@@ -2669,7 +2669,7 @@ table.alt tbody tr td {
 
 body {
   position: relative;
-  padding-top: 5em;
+  /* padding-top: 5em; */
 }
 
 #header {
@@ -2700,7 +2700,7 @@ body {
   }
 }
 
-#header .logo {
+.navbarLogo {
   font-family: "Pacifico", cursive;
   display: inline-block;
   height: inherit;
@@ -2708,7 +2708,7 @@ body {
   line-height: inherit;
   margin: 0;
   padding: 0;
-  position: absolute;
+  /* position: absolute; */
   top: 0;
   color: #e5474b;
   font-size: 1.75em;
@@ -2717,8 +2717,10 @@ body {
   padding: 0;
 }
 
-#header .logo:hover {
+.navbarLogo:hover {
   color: rgba(229, 71, 75, 0.75);
+
+  text-decoration: none;
 }
 
 #header a {
