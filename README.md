@@ -42,7 +42,7 @@ npm install
 7) Deleting events that you have created.
 8) Requesting registration for event as an attendee.
 9) Accepting/Rejecting participant request as an organizer of event.
-10) Viewing number of particpants and all details of particpants.
+10) Viewing number of participants and all details of participants.
 
 
 ### Screenshots:
